@@ -1,10 +1,12 @@
 App app;
 SceneMainMenu mm;
 SceneLevel level;
+CharacterPlayer player;
 
 void setup() {
   size(800, 600);
   app = new App();
+  player = new CharacterPlayer();
   mm = new SceneMainMenu(app);
   level = new SceneLevel(app, 24, 18);
 }
