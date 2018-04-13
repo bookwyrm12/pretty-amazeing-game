@@ -11,6 +11,10 @@ class Vec2 {
     this.y = y;
   }
   
+  boolean equals(Vec2 v) {
+    return this.x == v.x && this.y == v.y;
+  }
+  
   Vec2 copy() {
     return new Vec2(this.x, this.y);
   }
