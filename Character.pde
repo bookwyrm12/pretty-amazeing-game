@@ -37,32 +37,18 @@ class Character {
     int newy = this.posy;
     
     // Get new position attempt
-    if (key == 65 || key == 97) { // Left (A or a)
+    if (key == 'A' || key == 'a' || (key == CODED && keyCode == LEFT)) {
       newx = this.posx - 1;
       
-    } else if (key == 68 || key == 100) { // Right (D or d)
+    } else if (key == 'D' || key == 'd' || (key == CODED && keyCode == RIGHT)) {
       newx = this.posx + 1;
       
-    } else if (key == 87 || key == 119) { // Up (W or w)
+    } else if (key == 'W' || key == 'w' || (key == CODED && keyCode == UP)) {
       newy = this.posy - 1;
       
-    } else if (key == 83 || key == 115) { // Down (S or s)
+    } else if (key == 'S' || key == 's' || (key == CODED && keyCode == DOWN)) {
       newy = this.posy + 1;
       
-    } else if (key == CODED) {
-      if (keyCode == LEFT) { // Left arrow key
-        newx = this.posx - 1;
-        
-      } else if (keyCode == RIGHT) { // Right arrow key
-        newx = this.posx + 1;
-        
-      } else if (keyCode == UP) { // Up arrow key
-        newy = this.posy - 1;
-        
-      } else if (keyCode == DOWN) { // Down arrow key
-        newy = this.posy + 1;
-        
-      }
     }
     
     // Check if move is possible
