@@ -27,6 +27,10 @@ class CharacterPlayer extends Character {
     // TODO
   }
   
+  void changeIcon(String newIcon) {
+    super.changeIcon(newIcon);
+  }
+  
   void updateScore() {
     // TODO
   }
