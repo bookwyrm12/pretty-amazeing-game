@@ -25,4 +25,11 @@ class Maze {
       }
     }
   }
+  
+  void draw(CharacterPlayer player) {
+    // Draw maze
+    
+    // Draw player
+    player.draw(this);
+  }
 }

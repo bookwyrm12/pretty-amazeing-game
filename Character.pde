@@ -17,10 +17,10 @@ class Character {
     }
   }
   
-  void draw() {
+  void draw(Maze maze) {
     // Update position first
     if (keyPressed) {
-      move();
+      move(maze);
     }
     
     // Draw icon
@@ -29,8 +29,9 @@ class Character {
     popMatrix();
   }
   
-  void move() {
-    int newx, newy;
+  void move(Maze maze) {
+    int newx = this.posx;
+    int newy = this.posy;
     
     // Get new position attempt
     if (key == 65 || key == 97) { // Left (A or a)
@@ -62,7 +63,10 @@ class Character {
     }
     
     // Check if move is possible
-    // TODO
+    if (moveCheck(maze, newx, newy)) {
+      this.posx = newx;
+      this.posy = newy;
+    }
   }
   
   boolean moveCheck(Maze maze, int newx, int newy) {
