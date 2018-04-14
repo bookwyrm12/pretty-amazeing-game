@@ -6,8 +6,16 @@ class SceneLevelSelect extends Scene {
     this.mainMenu = mainMenu;
   }
   
+  void tick() {
+    boolean controlsActive = (this.zoom > 0.9); // Feels nicer than zoom == 1
+    
+    if (controlsActive && app.wasMouseClicked()) {
+      this.mainMenu.goToMainMenu();
+    }
+  }
+  
   void draw() {
-    // Draw a white background
+    // Draw a black background
     fill(0);
     noStroke();
     rect(bounds.x, bounds.y, bounds.w, bounds.h);
