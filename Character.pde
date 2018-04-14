@@ -63,16 +63,23 @@ class Character {
     }
     
     // Check if move is possible
-    if (moveCheck(maze, newx, newy)) {
+    if (isValidMove(maze, newx, newy)) {
       this.posx = newx;
       this.posy = newy;
     }
   }
   
-  boolean moveCheck(Maze maze, int newx, int newy) {
-    // TODO
-    // 1. Check if maze.tiles[newx][newy].solid == false
-    // 2. Check that we're not crossing a wall
+  boolean isValidMove(Maze maze, int newx, int newy) {
+    // 1. Check if newx/newy is out of bounds
+    if (!maze.isInBounds(newx, newy)) return false;
+    
+    // 2. Check if tile is wall or path
+    if (!maze.isPath(newx, newy)) return false;
+    
+    // 3. Check that we're not crossing a wall
+    if (maze.isWallBetween(this.posx, this.posy, newx, newy)) return false;
+    
+    // 4. If we pass the above tests, the move is valid
     return true;
   }
 }
