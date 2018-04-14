@@ -23,9 +23,12 @@ class Character {
       move(maze);
     }
     
+    // Get current position coordinates
+    float[] coords = maze.tileCoords(this.posx, this.posy);
+    
     // Draw icon
     pushMatrix();
-    // TODO
+    shape(this.icon, coords[0], coords[1], charIconW, charIconH);
     popMatrix();
   }
   

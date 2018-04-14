@@ -9,6 +9,8 @@ CharacterPlayer player;
 int wCells = 24;
 int hCells = 18;
 float cellSize = 25;
+float mazeX = 200, mazeY = 100;
+float charIconW = 20, charIconH = 14;
 
 /**** DO THINGS ****/
 void setup() {

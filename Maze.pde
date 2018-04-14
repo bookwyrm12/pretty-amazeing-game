@@ -50,4 +50,11 @@ class Maze {
     if (newy - posy == 1) return !this.tiles[posx][posy].bottomOpen; // this.tiles[posx][posy].southWall;
     return false;
   }
+  
+  float[] tileCoords(int posx, int posy) {
+    float[] coords = new float[2];
+    coords[0] = mazeX + (posx * cellSize);
+    coords[1] = mazeY + (posy * cellSize);
+    return coords;
+  }
 }
