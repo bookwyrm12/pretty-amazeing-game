@@ -7,7 +7,7 @@ class SceneOptions extends Scene {
   }
   
   void tick() {
-    boolean controlsActive = (this.zoom > 0.9); // Feels nicer than zoom == 1
+    boolean controlsActive = (bounds.w > 500);
     
     if (controlsActive && app.wasMouseClicked()) {
       this.mainMenu.goToMainMenu();
@@ -20,6 +20,7 @@ class SceneOptions extends Scene {
     rect(bounds.x, bounds.y, bounds.w, bounds.h);
     fill(255);
     textAlign(CENTER, CENTER);
+    textSize(bounds.h / 5);
     text("Options", bounds.getCenter().x, bounds.getCenter().y);
   }
 }
