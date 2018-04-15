@@ -32,11 +32,11 @@ class Character {
     }
     
     // Get current position coordinates
-    float[] coords = maze.tileCoords(this.posx, this.posy);
+    Vec2 coords = maze.tileCoords(this.posx, this.posy);
     
     // Draw icon
     pushMatrix();
-    shape(this.icon, coords[0], coords[1], this.iconW, this.iconH);
+    shape(this.icon, coords.x, coords.y, this.iconW, this.iconH);
     popMatrix();
   }
   

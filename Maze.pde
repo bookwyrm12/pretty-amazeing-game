@@ -57,10 +57,10 @@ class Maze {
     return false;
   }
   
-  float[] tileCoords(int posx, int posy) {
-    float[] coords = new float[2];
-    coords[0] = this.pos.x + (posx * this.cellW);
-    coords[1] = this.pos.y + (posy * this.cellH);
+  Vec2 tileCoords(int posx, int posy) {
+    Vec2 coords = new Vec2();
+    coords.x = this.pos.x + (posx * this.cellW);
+    coords.y = this.pos.y + (posy * this.cellH);
     return coords;
   }
 }
