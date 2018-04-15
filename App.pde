@@ -28,4 +28,8 @@ class App {
   boolean wasMouseClicked() {
     return _wasMouseClicked;
   }
+  
+  Vec2 getMousePos() {
+    return new Vec2(mouseX, mouseY);
+  }
 }
