@@ -1,0 +1,102 @@
+class Maze {
+  class Tile {
+    boolean solid     = true;
+    boolean northWall = true;
+    boolean eastWall  = true;
+    boolean southWall = true;
+    boolean westWall  = true;
+    String debug;
+  }
+  
+  int width;
+  int height;
+  Tile[][] tiles;
+  int seed;
+  int startX, startY;
+  int endX, endY;
+  
+  Maze(int width, int height) {
+    this.width  = width;
+    this.height = height;
+    this.tiles  = new Tile[width][height];
+    this.resetTiles();
+  }
+  
+  void resetTiles() {
+    for (int x = 0; x < this.width; ++x) {
+      for (int y = 0; y < this.height; ++y) {
+        tiles[x][y] = new Tile();
+      }
+    }
+  }
+  
+  void draw() {
+    float s = 20;
+    pushMatrix();
+    translate(s, s);
+    
+    // Draw the tiles
+    noStroke();
+    for (int x = 0; x < this.width; ++x) {
+      for (int y = 0; y < this.height; ++y) {
+        Tile t = tiles[x][y];
+        if (t.solid) {
+          fill(0);
+        } else {
+          fill(255);
+        }
+        rect(x * s, y * s, s, s);
+        if (t.debug != null) {
+          fill(t.solid ? 255 : 0);
+          textAlign(CENTER, CENTER);
+          textSize(10);
+          text(t.debug, x * s + s/2, y * s + s/2);
+        }
+      }
+    }
+    
+    // Draw the walls (done separately so that the walls are always on top)
+    stroke(0);
+    for (int x = 0; x < this.width; ++x) {
+      for (int y = 0; y < this.height; ++y) {
+        Tile t = tiles[x][y];
+        if (t.solid) {
+          continue;
+        }
+        pushMatrix();
+        translate(x * s, y * s);
+        if (t.northWall) {
+          line(0, s, s, s);
+        }
+        if (t.southWall) {
+          line(0, 0, s, 0);
+        }
+        if (t.eastWall) {
+          line(s, 0, s, s);
+        }
+        if (t.westWall) {
+          line(0, 0, 0, s);
+        }
+        popMatrix();
+      }
+    }
+    
+    popMatrix();
+  }
+  
+  void printDebug() {
+    StringDict strings = new StringDict();
+    for (int x = 0; x < maze.width; ++x) {
+      for (int y = 0; y < maze.height; ++y) {
+        Maze.Tile t = maze.tiles[x][y];
+        if (!t.solid) {
+          strings.set(t.debug, (t.northWall?"t ":"f ") + (t.eastWall?"t ":"f ") + (t.southWall?"t ":"f ") + (t.southWall?"t":"f"));
+        }
+      }
+    }
+    strings.sortKeys();
+    for (String k : strings.keyArray()) {
+      println(k + ":", strings.get(k));
+    }
+  }
+}
