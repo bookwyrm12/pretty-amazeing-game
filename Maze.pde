@@ -120,10 +120,10 @@ class Maze {
   }
   
   boolean isWallBetween(int posx, int posy, int newx, int newy) {
-    if (newx - posx == -1) return !this.tiles[posx][posy].leftOpen; // this.tiles[posx][posy].westWall;
-    if (newx - posx == 1) return !this.tiles[posx][posy].rightOpen; // this.tiles[posx][posy].eastWall;
-    if (newy - posy == -1) return !this.tiles[posx][posy].topOpen; // this.tiles[posx][posy].northWall;
-    if (newy - posy == 1) return !this.tiles[posx][posy].bottomOpen; // this.tiles[posx][posy].southWall;
+    if (newx - posx == -1) return this.tiles[posx][posy].westWall;
+    if (newx - posx == 1) return this.tiles[posx][posy].eastWall;
+    if (newy - posy == -1) return this.tiles[posx][posy].northWall;
+    if (newy - posy == 1) return this.tiles[posx][posy].southWall;
     return false;
   }
   
