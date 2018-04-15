@@ -11,6 +11,10 @@ class SceneLevel extends Scene {
     setMazeSize(this.id);
     this.mazePos     = new Vec2(200, 100);
     this.maze        = new Maze(this.wCells, this.hCells, this.mazePos);
+    
+    // TODO: remove me
+    MazeGenerator gen = new MazeGenerator();
+    gen.generate(maze);
   }
   
   void tick() {
@@ -30,7 +34,16 @@ class SceneLevel extends Scene {
     textAlign(CENTER, CENTER);
     textSize(bounds.h / 5);
     text(("Level " + this.id), bounds.getCenter().x, bounds.getCenter().y);
-    maze.draw(player);
+    
+    { // Draw the maze
+      int height1 = 300;
+      int height2 = 600;
+      float t = constrain((bounds.h - height1) / (height2 - height1), 0, 1);
+      
+      if (t > 0) {
+        maze.draw(player, t);
+      }
+    }
   }
   
   // Old stuff

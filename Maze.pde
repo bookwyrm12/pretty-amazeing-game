@@ -37,10 +37,22 @@ class Maze {
   }
   
   void draw(CharacterPlayer player) {
+    draw(player, 1);
+  }
+  
+  void draw(CharacterPlayer player, float scaleFactor) {
     float s = 20;
     pushMatrix();
     //translate(s, s);
-    translate(this.pos.x, this.pos.y);
+    Vec2 mazeSize = new Vec2(mazeW, mazeH);
+    Vec2 mazeCenter = pos.add(mazeSize.div(2));
+    Vec2 topLeftWithScale = mazeCenter.sub(mazeSize.mult(scaleFactor / 2));
+    translate(topLeftWithScale.x, topLeftWithScale.y);
+    
+    // Scale needs to be kept separate from the transform because text cannot
+    // be drawn when a scale is applied
+    pushMatrix();
+    scale(scaleFactor);
     
     // Draw the tiles
     noStroke();
@@ -53,12 +65,7 @@ class Maze {
           fill(255);
         }
         rect(x * s, y * s, s, s);
-        if (t.debug != null) {
-          fill(t.solid ? 255 : 0);
-          textAlign(CENTER, CENTER);
-          textSize(10);
-          text(t.debug, x * s + s/2, y * s + s/2);
-        }
+        
       }
     }
     
@@ -85,6 +92,20 @@ class Maze {
           line(0, 0, 0, s);
         }
         popMatrix();
+      }
+    }
+    popMatrix();
+    
+    // Draw the debug text
+    for (int x = 0; x < this.width; ++x) {
+      for (int y = 0; y < this.height; ++y) {
+        Tile t = tiles[x][y];
+        if (t.debug != null) {
+          fill(t.solid ? 255 : 0);
+          textAlign(CENTER, CENTER);
+          textSize(10);
+          text(t.debug, x * s + s/2, y * s + s/2);
+        }
       }
     }
     
