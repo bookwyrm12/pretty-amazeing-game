@@ -1,7 +1,8 @@
 class CharacterPlayer extends Character {
   int id;
   String name;
-  float score;
+  float score; // not implemented/future idea
+  IntList completedLevels;
   
   CharacterPlayer() {
     super();
@@ -32,6 +33,13 @@ class CharacterPlayer extends Character {
   }
   
   void updateScore() {
-    // TODO
+    // not implemented/future idea
+  }
+  
+  void completeLevel(SceneLevel level) {
+    // If the level is not already in completed list, add it
+    if (!this.completedLevels.hasValue(level.id)) {
+      this.completedLevels.append(level.id);
+    }
   }
 }
