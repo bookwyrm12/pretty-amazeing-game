@@ -25,7 +25,7 @@ class Character {
     this.iconH = h;
   }
   
-  void setCoords(int newx, int newy) {
+  void setCoords(Maze maze, int newx, int newy) {
     // Check if position is possible
     if (isValidPos(maze, newx, newy)) {
       this.posx = newx;
