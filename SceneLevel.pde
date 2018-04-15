@@ -1,9 +1,19 @@
 class SceneLevel extends Scene {
+  int id, wCells, hCells;
+  Vec2 mazePos;
   Maze maze;
   
-  SceneLevel(App app, int w, int h) {
+  SceneLevel(App app, int id) {
     super(app);
-    this.maze = new Maze(w, h);
+    this.id      = id;
+    setMazeSize(this.id);
+    this.mazePos = new Vec2(200, 100);
+    this.maze    = new Maze(this.wCells, this.hCells, this.mazePos);
+  }
+  
+  void setMazeSize(int id) {
+    this.wCells = 18 + (id * 2);
+    this.hCells = 18 + (id * 2);
   }
   
   void draw() {

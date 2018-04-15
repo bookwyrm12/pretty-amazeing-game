@@ -1,13 +1,16 @@
 class Character {
   PShape icon;
+  float iconW, iconH;
   int posx, posy; // coordinates in the maze grid
   
   Character() {
     this.icon = loadShape("char_ladybug.svg"); // default icon
+    setIconSize(20, 14);
   }
   
   Character(String icon) {
     this.icon = loadShape("char_" + icon + ".svg");
+    setIconSize(20, 14);
   }
   
   void changeIcon(String newIcon) {
@@ -15,6 +18,11 @@ class Character {
     if (tmp != null) {
       this.icon = tmp;
     }
+  }
+  
+  void setIconSize(float w, float h) {
+    this.iconW = w;
+    this.iconH = h;
   }
   
   void draw(Maze maze) {
@@ -28,7 +36,7 @@ class Character {
     
     // Draw icon
     pushMatrix();
-    shape(this.icon, coords[0], coords[1], charIconW, charIconH);
+    shape(this.icon, coords[0], coords[1], this.iconW, this.iconH);
     popMatrix();
   }
   

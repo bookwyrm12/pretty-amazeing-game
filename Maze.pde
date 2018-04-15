@@ -7,13 +7,19 @@ class Maze {
     boolean leftOpen   = false;
   }
   
-  int width;
-  int height;
+  int width, height;
+  float cellW, cellH;
+  final float mazeW = 400;
+  final float mazeH = 400;
+  Vec2 pos;
   Tile[][] tiles;
   
-  Maze(int width, int height) {
+  Maze(int width, int height, Vec2 pos) {
     this.width  = width;
     this.height = height;
+    this.cellW  = this.mazeW / width;
+    this.cellH  = this.mazeH / height;
+    this.pos    = pos;
     this.tiles  = new Tile[width][height];
     this.resetTiles();
   }
@@ -53,8 +59,8 @@ class Maze {
   
   float[] tileCoords(int posx, int posy) {
     float[] coords = new float[2];
-    coords[0] = mazeX + (posx * cellSize);
-    coords[1] = mazeY + (posy * cellSize);
+    coords[0] = this.pos.x + (posx * this.cellW);
+    coords[1] = this.pos.y + (posy * this.cellH);
     return coords;
   }
 }
