@@ -16,10 +16,10 @@ class SceneLevel extends Scene {
     this.hCells = 18 + (id * 2);
   }
   
-  void draw() {
+  void draw(CharacterPlayer player) {
     // Draw background
     
     // Draw maze
-    // maze.draw();
+    maze.draw(player);
   }
 }
