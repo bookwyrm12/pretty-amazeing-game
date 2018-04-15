@@ -56,4 +56,11 @@ class Vec2 {
     float c = cos(rad);
     return new Vec2(this.x * c - this.y * s, this.x * s + this.y * c);
   }
+  
+  Vec2 lerp(Vec2 v, float t) {
+    return new Vec2(
+      this.x + (v.x - this.x) * t,
+      this.y + (v.y - this.y) * t
+    );
+  }
 }

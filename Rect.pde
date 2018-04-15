@@ -59,4 +59,13 @@ class Rect {
             this.x + this.w > v.x &&
             this.y + this.h > v.y);
   }
+  
+  Rect lerp(Rect r, float t) {
+    return new Rect(
+      this.x + (r.x - this.x) * t,
+      this.y + (r.y - this.y) * t,
+      this.w + (r.w - this.w) * t,
+      this.h + (r.h - this.h) * t
+    );
+  }
 }
