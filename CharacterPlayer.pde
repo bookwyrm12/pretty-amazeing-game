@@ -36,10 +36,10 @@ class CharacterPlayer extends Character {
     // not implemented/future idea
   }
   
-  void completeLevel(SceneLevel level) {
+  void completeLevel(int level) {
     // If the level is not already in completed list, add it
-    if (!this.completedLevels.hasValue(level.id)) {
-      this.completedLevels.append(level.id);
+    if (!this.completedLevels.hasValue(level)) {
+      this.completedLevels.append(level);
     }
   }
 }
