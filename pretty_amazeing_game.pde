@@ -1,4 +1,4 @@
-/*App app;
+App app;
 SceneMainMenu mm;
 
 void setup() {
@@ -12,9 +12,9 @@ void draw() {
   mm.tick();
   mm.draw();
   app.postTick();
-}*/
+}
 
-Maze maze;
+/*Maze maze;
 
 void setup() {
   size(800, 600);
@@ -37,4 +37,4 @@ void keyPressed() {
     MazeGenerator gen = new MazeGenerator();
     gen.generate(maze);
   }
-}
+}*/
