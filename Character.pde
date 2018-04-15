@@ -25,6 +25,14 @@ class Character {
     this.iconH = h;
   }
   
+  void setCoords(int newx, int newy) {
+    // Check if position is possible
+    if (isValidPos(maze, newx, newy)) {
+      this.posx = newx;
+      this.posy = newy;
+    }
+  }
+  
   void draw(Maze maze) {
     // Update position first
     if (keyPressed) {
@@ -36,6 +44,7 @@ class Character {
     
     // Draw icon
     pushMatrix();
+    // TODO: rotate icon
     shape(this.icon, coords.x, coords.y, this.iconW, this.iconH);
     popMatrix();
   }
@@ -64,6 +73,17 @@ class Character {
       this.posx = newx;
       this.posy = newy;
     }
+  }
+  
+  boolean isValidPos(Maze maze, int newx, int newy) {
+    // 1. Check if newx/newy is out of bounds
+    if (!maze.isInBounds(newx, newy)) return false;
+    
+    // 2. Check if tile is wall or path
+    if (!maze.isPath(newx, newy)) return false;
+    
+    // 4. If we pass the above tests, the move is valid
+    return true;
   }
   
   boolean isValidMove(Maze maze, int newx, int newy) {
