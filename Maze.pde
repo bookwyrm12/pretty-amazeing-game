@@ -39,7 +39,8 @@ class Maze {
   void draw(CharacterPlayer player) {
     float s = 20;
     pushMatrix();
-    translate(s, s);
+    //translate(s, s);
+    translate(this.pos.x, this.pos.y);
     
     // Draw the tiles
     noStroke();

@@ -1,7 +1,6 @@
 /**** VARIABLES ****/
 App app;
 SceneMainMenu mm;
-SceneLevel level;
 SceneOptions options;
 CharacterPlayer player;
 
@@ -11,8 +10,6 @@ void setup() {
   app = new App();
   player = new CharacterPlayer();
   mm = new SceneMainMenu(app);
-  options = new SceneOptions(app);
-  level = new SceneLevel(app, 1);
 }
 
 void draw() {
