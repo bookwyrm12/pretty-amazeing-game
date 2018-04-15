@@ -24,7 +24,12 @@ void setup() {
 }
 
 void draw() {
+  background(200);
   maze.draw();
+  fill(0);
+  textSize(12);
+  textAlign(LEFT, TOP);
+  text(maze.seed, 0, 0);
 }
 
 void keyPressed() {

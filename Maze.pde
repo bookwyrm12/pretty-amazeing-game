@@ -11,6 +11,9 @@ class Maze {
   int width;
   int height;
   Tile[][] tiles;
+  int seed;
+  int startX, startY;
+  int endX, endY;
   
   Maze(int width, int height) {
     this.width  = width;

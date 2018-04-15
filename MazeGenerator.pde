@@ -187,8 +187,8 @@ class MazeGenerator {
   float multAvoidOpen;
   
   MazeGenerator() {
-    probBranch = 0.2;
-    probStraight = 0.7;
+    probBranch = 0.15;
+    probStraight = 0.5;
     multAvoidOpen = 0.0;
   }
   
@@ -212,17 +212,29 @@ class MazeGenerator {
   }
   
   
-  // Generates a new maze based on the current class settings
   void generate(Maze maze) {
+    generate(maze, (int)random(0, pow(2, 31)));
+  }
+  
+  // Generates a new maze based on the current class settings
+  void generate(Maze maze, int seed) {
+    // 80 chars ===-=========-=========-=========-=========-=========-=========-
+    
+    // Save and active the seed
+    maze.seed = seed;
+    randomSeed(seed);
+    
     // Reset all tiles to solid; we'll be carving out our maze
     maze.resetTiles();
-    
-    // ___=========-=========-=========-=========-=========-=========-=========-
     
     // Generate our start and end positions to be a random position within the
     // maze
     Vec2 startPos = getRandomPos(maze);
     Vec2 endPos = getRandomPos(maze);
+    maze.startX = (int)startPos.x;
+    maze.startY = (int)startPos.y;
+    maze.endX = (int)endPos.x;
+    maze.endY = (int)endPos.y;
     
     // While carving out hallways, there is a certain probability that the
     // hallway will branch. If we used a recursive function to carve, then the
@@ -238,9 +250,9 @@ class MazeGenerator {
     // Explore until we can't anymore. Note that this doesn't necessarily mean
     // the entire maze has been covered; it's potentially possible for algo to
     // back itself into a corner.
-    int debugCount = 0;
+    //int debugCount = 0;
     while (!nodesToExplore.isEmpty()) {
-      debugCount++;
+      //debugCount++;
       
       // Get the current node
       CarveNode node = nodesToExplore.remove();
