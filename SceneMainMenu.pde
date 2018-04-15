@@ -12,15 +12,8 @@ class SceneMainMenu extends Scene {
     // Update the zoom & logic for scenes
     sceneButtons.tick();
     
-    // TODO: replace this
-    // We will enable button controls only when we are entirely in the main menu
-    boolean controlsActive = true;
-    for (SceneButton button : sceneButtons.buttons) {
-      if (button.zoom.isStable() && button.zoom.value == 0) {
-        continue;
-      }
-      controlsActive = false;
-    }
+    // We will enable button controls only when we are the active scene
+    boolean controlsActive = sceneButtons.areAllButtonsZoomedOut(0.1);
     
     // Check for button clicks
     if (controlsActive) {
@@ -36,12 +29,6 @@ class SceneMainMenu extends Scene {
   }
   
   void goToMainMenu() {
-    // TODO: replace this
-    // Zoom out of all scenes
-    for (SceneButton button : sceneButtons.buttons) {
-      if (button.zoom.value != 0) {
-        button.zoom.animateTo(0);
-      }
-    }
+    sceneButtons.zoomOutAllButtons();
   }
 }

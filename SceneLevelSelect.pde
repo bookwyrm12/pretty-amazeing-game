@@ -16,18 +16,15 @@ class SceneLevelSelect extends Scene {
     // Update the zoom & logic for scenes
     sceneButtons.tick();
     
-    // We will enable button controls only when we are entirely in the main menu
-    boolean controlsActive = (this.bounds.w > 500);
-    for (SceneButton button : sceneButtons.buttons) {
-      if (button.zoom.value < 0.1) {
-        continue;
-      }
-      controlsActive = false;
-    }
+    // We will enable button controls only when we are the active scene
+    boolean controlsActive = (this.bounds.w > 500) && sceneButtons.areAllButtonsZoomedOut(0.1);
     
     // Check for button clicks
     if (controlsActive) {
       boolean clickedButton = sceneButtons.handleClicks();
+      
+      // If no button was clicked, but the mouse was, pretend that the user
+      // clicked an imaginary "back" button
       if (!clickedButton && app.wasMouseClicked()) {
         mainMenu.goToMainMenu();
       }
@@ -81,12 +78,6 @@ class SceneLevelSelect extends Scene {
   }
   
   void goToLevelSelect() {
-    // TODO: replace this
-    // Zoom out of all scenes
-    for (SceneButton button : sceneButtons.buttons) {
-      if (button.zoom.value != 0) {
-        button.zoom.animateTo(0);
-      }
-    }
+    sceneButtons.zoomOutAllButtons();
   }
 }

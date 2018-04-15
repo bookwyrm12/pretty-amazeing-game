@@ -10,7 +10,7 @@ class SceneButtonList {
   // padding) with respect to the scene bounds
   Vec2 relPadding;
   
-  // Obviously we need to store the buttons
+  // Obviously we need to store the buttons (class found at bottom)
   ArrayList<SceneButton> buttons;
   
   
@@ -76,7 +76,24 @@ class SceneButtonList {
     buttons.add(button);
   }
   
-  ArrayList<SceneButton> sortButtons() {
+  boolean areAllButtonsZoomedOut(float threshold) {
+    for (SceneButton button : buttons) {
+      if (button.zoom.value > threshold) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
+  void zoomOutAllButtons() {
+    for (SceneButton button : buttons) {
+      if (button.zoom.value != 0) {
+        button.zoom.animateTo(0);
+      }
+    }
+  }
+  
+  private ArrayList<SceneButton> sortButtons() {
     // Stolen from: https://trinisoftinc.wordpress.com/2012/03/29/simple-sorting-algorithms-implementations-part-1/
     
     ArrayList<SceneButton> sortedButtons = (ArrayList)this.buttons.clone();
@@ -92,16 +109,7 @@ class SceneButtonList {
     return sortedButtons;
   }
   
-  /*SceneButton findButtonByName(String name) {
-    for (SceneButton button : buttons) {
-      if (button.name.equals(name)) {
-        return button;
-      }
-    }
-    return null;
-  }*/
-  
-  void positionAndScaleButtons() {
+  private void positionAndScaleButtons() {
     
     // Scale
     for (SceneButton button : buttons) {
@@ -180,4 +188,49 @@ class SceneButtonList {
       }
     }
   }
+  
+  
+  
+  class SceneButton {
+  // Used for identifying a scene button within the code
+  String name;
+  
+  // This scene will be rendered/resized by this button
+  Scene scene;
+  
+  // When a scene is clicked on, its sizing is no longer controlled by the
+  // SceneButtonList, but instead, it is zoomed in on and made fullscreen. The
+  // zoom ranges from 0 (totally determined by SceneButtonList) to 1
+  // (fullscreen).
+  SmoothFloat zoom;
+  
+  
+  SceneButton(String name, Scene scene) {
+    this.name = name;
+    this.scene = scene;
+    
+    float initial = 0;
+    float duration = 0.8;
+    this.zoom = new SmoothFloat(initial, duration);
+  }
+  
+  // This will allow the buttons to be sorted by zoom, which allows us to
+  // render the "active" scene (the one being zoomed in on) in front of the
+  // rest.
+  int compareTo(SceneButton button) {
+    if (this.zoom.value < button.zoom.value) return -1;
+    if (this.zoom.value > button.zoom.value) return 1;
+    return 0;
+  }
+  
+  // This returns zoom.value after cubic easing
+  float easedZoom() {
+    return easeInOutCubic(zoom.value);
+  }
+  
+  private float easeInOutCubic(float t) {
+    // Stolen from: https://gist.github.com/gre/1650294
+    return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1;
+  }
+}
 }
