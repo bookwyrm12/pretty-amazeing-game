@@ -86,9 +86,9 @@ class Maze {
   
   void printDebug() {
     StringDict strings = new StringDict();
-    for (int x = 0; x < maze.width; ++x) {
-      for (int y = 0; y < maze.height; ++y) {
-        Maze.Tile t = maze.tiles[x][y];
+    for (int x = 0; x < this.width; ++x) {
+      for (int y = 0; y < this.height; ++y) {
+        Maze.Tile t = this.tiles[x][y];
         if (!t.solid) {
           strings.set(t.debug, (t.northWall?"t ":"f ") + (t.eastWall?"t ":"f ") + (t.southWall?"t ":"f ") + (t.southWall?"t":"f"));
         }
