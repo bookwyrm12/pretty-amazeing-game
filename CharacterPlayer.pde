@@ -7,12 +7,14 @@ class CharacterPlayer extends Character {
   CharacterPlayer() {
     super();
     this.id = generateID();
+    this.completedLevels = new IntList();
   }
   
   CharacterPlayer(String name, String icon) {
     super(icon);
     this.id = generateID();
     this.name = name;
+    this.completedLevels = new IntList();
   }
   
   int generateID() {
