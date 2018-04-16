@@ -1,7 +1,23 @@
 class Character {
+  // character icon
   PShape icon;
+  
+  // icon width & height
   float iconW, iconH;
-  int posx, posy; // coordinates in the maze grid
+  
+  // coordinates in the maze grid
+  int posx, posy;
+  
+  // global coordinates
+  Vec2 pos;
+  float offsetX, offsetY;
+  
+  // previous coordinates in the maze grid
+  int prevx, prevy;
+  int moveX, moveY;
+  
+  // direction the icon should face
+  float dir, prevDir;
   
   Character() {
     this.icon = loadShape("char_ladybug.svg"); // default icon
@@ -25,27 +41,79 @@ class Character {
     this.iconH = h;
   }
   
+  void setIconColor(color newcolor) {
+    this.icon.disableStyle();
+    this.icon.setFill(newcolor);
+  }
+  
   void setCoords(Maze maze, int newx, int newy) {
     // Check if position is possible
     if (isValidPos(maze, newx, newy)) {
       this.posx = newx;
       this.posy = newy;
+      this.pos = maze.tileCoords(newx, newy, "CENTER");
     }
+  }
+  
+  void changeDir(int newx, int newy) {
+    float newDir = 0;
+    
+    if (newx - this.posx == -1) {
+      this.offsetX = 0;
+      this.offsetY = 0;
+      newDir = 3 * PI / 2;
+    } else if (newx - this.posx == 1) {
+      newDir = PI / 2;
+    } else if (newy - this.posy == -1) {
+      newDir = 0;
+    } else if (newy - this.posy == 1) {
+      newDir = PI;
+    }
+    
+    this.dir = newDir - this.prevDir;
+    //println(this.dir);
   }
   
   void draw(Maze maze) {
     // Update position first
     if (keyPressed) {
       move(maze);
+    } else {
+      moveX = 0;
+      moveY = 0;
     }
     
     // Get current position coordinates
-    Vec2 coords = maze.tileCoords(this.posx, this.posy);
+    Vec2 coords = maze.tileCoords(this.posx, this.posy, "CENTER");
     
     // Draw icon
     pushMatrix();
-    // TODO: rotate icon
+    fill(cPersianGreen);
+    stroke(cPersianGreen);
+    setIconColor(cPersianGreen);
+    
+    shapeMode(CENTER);
+    //this.icon.rotate(this.dir); // TODO
+    
+    //if (this.dir == PI / 2) {
+    //  coords = maze.tileCoords(this.posx - 1, this.posy, "CENTER");
+    //  println("right");
+    //} else if (this.dir == PI) {
+    //  coords = maze.tileCoords(this.posx - 1, this.posy - 1, "CENTER");
+    //  println("down");
+    //} else if (this.dir == 3 * PI / 2) {
+    //  coords = maze.tileCoords(this.posx, this.posy - 1, "CENTER");
+    //  println("left");
+    //} else {
+    //  coords = maze.tileCoords(this.posx, this.posy, "CENTER");
+    //  println("up");
+    //}
+    
+    this.prevDir = this.dir;
+    this.dir = 0;
     shape(this.icon, coords.x, coords.y, this.iconW, this.iconH);
+    //shape(this.icon, this.pos.x, this.pos.y, this.iconW, this.iconH);
+    shapeMode(CORNER);
     popMatrix();
   }
   
@@ -56,20 +124,25 @@ class Character {
     // Get new position attempt
     if (key == 'A' || key == 'a' || (key == CODED && keyCode == LEFT)) {
       newx = this.posx - 1;
+      moveX = -1;
       
     } else if (key == 'D' || key == 'd' || (key == CODED && keyCode == RIGHT)) {
       newx = this.posx + 1;
+      moveX = 1;
       
     } else if (key == 'W' || key == 'w' || (key == CODED && keyCode == UP)) {
       newy = this.posy - 1;
+      moveY = -1;
       
     } else if (key == 'S' || key == 's' || (key == CODED && keyCode == DOWN)) {
       newy = this.posy + 1;
+      moveY = 1;
       
     }
     
     // Check if move is possible
     if (isValidMove(maze, newx, newy)) {
+      changeDir(newx, newy);
       this.posx = newx;
       this.posy = newy;
     }
