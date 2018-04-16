@@ -4,6 +4,8 @@ SceneMainMenu mm;
 SceneOptions options;
 CharacterPlayer player;
 
+color cPersianGreen = color(0, 168, 150);
+
 /**** DO THINGS ****/
 void setup() {
   size(800, 600);
