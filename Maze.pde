@@ -121,7 +121,7 @@ class Maze {
       for (int y = 0; y < this.height; ++y) {
         Maze.Tile t = this.tiles[x][y];
         if (!t.solid) {
-          strings.set(t.debug, (t.northWall?"t ":"f ") + (t.eastWall?"t ":"f ") + (t.southWall?"t ":"f ") + (t.southWall?"t":"f"));
+          strings.set(t.debug, (t.northWall?"t ":"f ") + (t.eastWall?"t ":"f ") + (t.southWall?"t ":"f ") + (t.westWall?"t":"f"));
         }
       }
     }
@@ -129,6 +129,23 @@ class Maze {
     for (String k : strings.keyArray()) {
       println(k + ":", strings.get(k));
     }
+  }
+  
+  void saveMazeFile() {
+    int numCells = (this.width * this.height) + 1;
+    String[] mazedata = new String[numCells];
+    int i = 0;
+    mazedata[i] = "x | y | solid | n | e | s | w";
+    i++;
+    for (int x = 0; x < this.width; x++) {
+      for (int y = 0; y < this.height; y++) {
+        Maze.Tile t = this.tiles[x][y];
+        String loc = x + " | " + y + " | ";
+        mazedata[i] = loc + (t.solid?"wall | ":"path | ") + (t.northWall?"t | ":"f | ") + (t.eastWall?"t | ":"f | ") + (t.southWall?"t | ":"f | ") + (t.westWall?"t":"f");
+        i++;
+      }
+    }
+    saveStrings(this.seed + "-mazedata.txt", mazedata);
   }
   
   boolean isInBounds(int posx, int posy) {
@@ -144,15 +161,34 @@ class Maze {
   boolean isWallBetween(int posx, int posy, int newx, int newy) {
     if (newx - posx == -1) return this.tiles[posx][posy].westWall;
     if (newx - posx == 1) return this.tiles[posx][posy].eastWall;
-    if (newy - posy == -1) return this.tiles[posx][posy].northWall;
-    if (newy - posy == 1) return this.tiles[posx][posy].southWall;
+    if (newy - posy == -1) return this.tiles[posx][posy].southWall;
+    if (newy - posy == 1) return this.tiles[posx][posy].northWall;
     return false;
   }
   
-  Vec2 tileCoords(int posx, int posy) {
+  Vec2 tileCoords(int posx, int posy, String mode) {
     Vec2 coords = new Vec2();
-    coords.x = this.pos.x + (posx * this.cellW);
-    coords.y = this.pos.y + (posy * this.cellH);
+    if (mode == "CENTER") {
+      coords.x = this.pos.x + (posx * this.cellW) + (this.cellW / 2);
+      coords.y = this.pos.y + (posy * this.cellH) + (this.cellH / 2);
+    } else { // if (mode == "CORNER") {
+      coords.x = this.pos.x + (posx * this.cellW);
+      coords.y = this.pos.y + (posy * this.cellH);
+    }
     return coords;
   }
+  
+  //int[] gridCoords(Vec2 pos, String mode) {
+  //  int[] coords = new int[2];
+  //  if (mode == "CENTER") {
+  //    coords[0] = int((pos.x - this.pos.x) / this.cellW);
+  //    coords[1] = int((pos.y - this.pos.y) / this.cellH);
+  //    //coords[0] = this.pos.x + (pos.x * this.cellW) + (this.cellW / 2);
+  //    //coords[1] = this.pos.y + (pos.y * this.cellH) + (this.cellH / 2);
+  //  } else { // if (mode == "CORNER") {
+  //    coords[0] = int((pos.x - this.pos.x) / this.cellW);
+  //    coords[1] = int((pos.y - this.pos.y) / this.cellH);
+  //  }
+  //  return coords;
+  //}
 }
