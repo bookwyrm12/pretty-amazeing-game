@@ -3,6 +3,9 @@ class SceneLevel1 extends SceneLevel {
   
   SceneLevel1(SceneLevelSelect levelSelect) {
     super(levelSelect, 1);
+    MazeGenerator gen = new MazeGenerator();
+    gen.generate(maze, 1178750592);
+    player.setCoords(maze, this.maze.startX, this.maze.startY);
   }
   
   //void tick() {
