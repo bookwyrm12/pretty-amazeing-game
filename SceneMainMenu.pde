@@ -22,13 +22,22 @@ class SceneMainMenu extends Scene {
   }
   
   void draw() {
-    fill(255);
-    noStroke();
-    rect(bounds.x, bounds.y, bounds.w, bounds.h);
+    pattern();
     sceneButtons.draw();
   }
   
   void goToMainMenu() {
     sceneButtons.zoomOutAllButtons();
+  }
+  
+  void pattern() {
+    ButtonPattern bp = new ButtonPattern(bounds.x, bounds.y, bounds.w, bounds.h);
+    bp.displayMain();
+    
+    //Pattern
+    Flower f1 = new Flower(bounds.x + bounds.w, bounds.y + bounds.h, 750);
+    Flower f2 = new Flower(bounds.x, bounds.y, 750);
+    f1.display();
+    f2.display();
   }
 }
