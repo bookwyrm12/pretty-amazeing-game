@@ -115,6 +115,16 @@ class Maze {
     player.draw(this);
   }
   
+  void colorTile(int posx, int posy, color c) {
+    // Set color
+    fill(c);
+    stroke(c);
+    
+    // Color tile
+    Vec2 coords = tileCoords(posx, posy, "CORNER");
+    rect(coords.x, coords.y, this.cellW, this.cellH);
+  }
+  
   void printDebug() {
     StringDict strings = new StringDict();
     for (int x = 0; x < this.width; ++x) {

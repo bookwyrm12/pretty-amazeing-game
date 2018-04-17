@@ -11,14 +11,19 @@ class Character {
   // direction the icon should face
   float rotate;
   
+  // keep track of move trail
+  ArrayDeque<int[]> moveTrail;
+  
   Character() {
     this.icon = loadShape("char_ladybug.svg"); // default icon
     setIconSize(20, 14);
+    moveTrail = new ArrayDeque<int[]>();
   }
   
   Character(String icon) {
     this.icon = loadShape("char_" + icon + ".svg");
     setIconSize(20, 14);
+    moveTrail = new ArrayDeque<int[]>();
   }
   
   void changeIcon(String newIcon) {
@@ -41,6 +46,7 @@ class Character {
   void resetPos(Maze maze) {
     setCoords(maze, maze.startX, maze.startY);
     this.rotate = 0;
+    this.moveTrail.clear();
   }
   
   void setCoords(Maze maze, int newx, int newy) {
@@ -48,6 +54,7 @@ class Character {
     if (isValidPos(maze, newx, newy)) {
       this.posx = newx;
       this.posy = newy;
+      this.moveTrail.clear();
     }
   }
   
@@ -58,13 +65,16 @@ class Character {
     // Get current position coordinates
     Vec2 coords = maze.tileCoords(this.posx, this.posy, "CENTER");
     
-    // Set icon color
-    fill(cPersianGreen);
-    stroke(cPersianGreen);
-    setIconColor(cPersianGreen);
-    
     pushMatrix();
     shapeMode(CENTER);
+    
+    // Color current tile & trail tiles
+    drawTrail(maze);
+    
+    // Set icon color
+    fill(255, 255, 255);
+    stroke(255, 255, 255);
+    setIconColor(color(255, 255, 255));
     
     // Rotate icon
     translate(coords.x, coords.y);
@@ -75,6 +85,24 @@ class Character {
     
     shapeMode(CORNER);
     popMatrix();
+  }
+  
+  void drawTrail(Maze maze) {
+    // Set fade/alpha var
+    int fade = 255;
+    
+    // Color current tile
+    maze.colorTile(this.posx, this.posy, color(0, 168, 150, fade));
+    
+    // Color trail tiles
+    Iterator<int[]> trail = this.moveTrail.descendingIterator();
+    while (trail.hasNext()) {
+      if (fade > 0) {
+        fade -= (255 * 0.2);
+      }
+      int[] t = trail.next();
+      maze.colorTile(t[0], t[1], color(0, 168, 150, fade));
+    }
   }
   
   void move(Maze maze) {
@@ -102,6 +130,13 @@ class Character {
     
     // Check if move is possible
     if (isValidMove(maze, newx, newy)) {
+      // Add position to trail
+      this.moveTrail.add( new int[] { this.posx, this.posy } );
+      if (this.moveTrail.size() > 5) {
+        this.moveTrail.remove();
+      }
+      
+      // Move
       this.posx = newx;
       this.posy = newy;
     }

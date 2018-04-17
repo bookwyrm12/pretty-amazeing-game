@@ -1,5 +1,3 @@
-import java.util.ArrayDeque;
-
 class MazeGenerator {
   
   class Direction extends Vec2 {
