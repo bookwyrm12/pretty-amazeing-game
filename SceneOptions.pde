@@ -7,8 +7,6 @@ class SceneOptions extends Scene {
     super(mainMenu.app);
     this.mainMenu = mainMenu;
     this.backButton = new CircleButton(0, 0, 0, 0, 255);
-    //this.backButton.rectColor = color(255);
-    //this.backButton.textColor = color(0);
     s = new Slider(bounds.x + bounds.w/2, bounds.w/24);
   }
   
@@ -19,7 +17,8 @@ class SceneOptions extends Scene {
     if (controlsActive) {
       
       // Check for back button
-      if (backButton.over && mousePressed) {
+      backButton.tick();
+      if (backButton.wasClicked) {
         mainMenu.goToMainMenu();
       }
     }
@@ -29,20 +28,12 @@ class SceneOptions extends Scene {
     pattern();
     
     { // Draw the back button
-      float offsetX = bounds.x + 1.0 / 24 * bounds.w;
-      float offsetY = bounds.y + 1.0 / 24 * bounds.w;
-      float sizeX = 1.0 / 8.0 * bounds.w;
-      float sizeY = 0.5 / 6.0 * bounds.h;
-      float tSize = 0.12 / 8.0 * bounds.w;
+      float offsetX = bounds.x + 1.0 / 20 * bounds.w;
+      float offsetY = bounds.y + 1.0 / 20 * bounds.w;
+      float sizeY = 0.5 / 8.0 * bounds.h;
       
       backButton.bounds(offsetX, offsetY, sizeY, sizeY, CP.background);
-      //backButton.textSize = tSize;
-      //backButton.draw();
-      backButton.displayBack();
-      
-      if (backButton.over && mousePressed) {
-        mainMenu.goToMainMenu();
-      }
+      backButton.displayBackMain();
     }
     { // If we're below a certain size, we want to fade out the scene buttons, so
       // we'll do that by rendering a translucent black rect over them.
@@ -124,18 +115,18 @@ class SceneOptions extends Scene {
     }
     
     //Character Select
-    CircleButton char1 = new CircleButton(bounds.x + bounds.w/2 - bounds.h/7, bounds.y + 4*bounds.h/5, bounds.h/20, bounds.h/20, CP.background);
-    CircleButton char2 = new CircleButton(bounds.x + bounds.w/2, bounds.y + 4*bounds.h/5, bounds.h/20, bounds.h/20, CP.background);
-    CircleButton char3 = new CircleButton(bounds.x + bounds.w/2  + bounds.h/7, bounds.y + 4*bounds.h/5, bounds.h/20, bounds.h/20, CP.background);
-    char1.displayNoImage();
-    char2.displayNoImage();
-    char3.displayNoImage();
+    CircleButton char1 = new CircleButton(bounds.x + bounds.w/2 - bounds.h/7, bounds.y + 4*bounds.h/5, bounds.h/20, bounds.h/20, "char_ladybug.svg");
+    CircleButton char2 = new CircleButton(bounds.x + bounds.w/2, bounds.y + 4*bounds.h/5, bounds.h/20, bounds.h/20, "char_owl.svg");
+    CircleButton char3 = new CircleButton(bounds.x + bounds.w/2  + bounds.h/7, bounds.y + 4*bounds.h/5, bounds.h/20, bounds.h/20, "char_cat.svg");
+    char1.displayImage();
+    char2.displayImage();
+    char3.displayImage();
     char1.update();
     char2.update();
     char3.update();
-    if(char1.over && mousePressed) {
-    } else if(char2.over && mousePressed) {
-    } else if(char3.over && mousePressed) {
+    if(char1.over && mousePressed) { player.changeIcon("ladybug");
+    } else if(char2.over && mousePressed) { player.changeIcon("owl");
+    } else if(char3.over && mousePressed) { player.changeIcon("cat");
     }
   }
 }

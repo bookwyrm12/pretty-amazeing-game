@@ -1,7 +1,7 @@
 class SceneLevelSelect extends Scene {
   SceneMainMenu mainMenu;
   SceneButtonList sceneButtons;
-  TextButton backButton;
+  CircleButton backButton;
   
   SceneLevelSelect(SceneMainMenu mainMenu) {
     super(mainMenu.app);
@@ -11,9 +11,7 @@ class SceneLevelSelect extends Scene {
     this.sceneButtons.createButton("level 1", new SceneLevel1(this));
     this.sceneButtons.createButton("level 2", new SceneLevel2(this));
     this.sceneButtons.createButton("level 3", new SceneLevel3(this));
-    this.backButton = new TextButton("Back");
-    this.backButton.rectColor = color(255);
-    this.backButton.textColor = color(0);
+    this.backButton = new CircleButton(0, 0, 0, 0, 255);
   }
   
   void tick() {
@@ -41,15 +39,12 @@ class SceneLevelSelect extends Scene {
     pattern();
     
     { // Draw the back button
-      float offsetX = bounds.x + 1.0 / 24 * bounds.w;
-      float offsetY = bounds.y + 1.0 / 24 * bounds.w;
-      float sizeX = 1.0 / 8.0 * bounds.w;
-      float sizeY = 0.5 / 6.0 * bounds.h;
-      float tSize = 0.12 / 8.0 * bounds.w;
+      float offsetX = bounds.x + 1.0 / 20 * bounds.w;
+      float offsetY = bounds.y + 1.0 / 20 * bounds.w;
+      float sizeY = 0.5 / 8.0 * bounds.h;
       
-      backButton.bounds = new Rect(offsetX, offsetY, sizeX, sizeY);
-      backButton.textSize = tSize;
-      backButton.draw();
+      backButton.bounds(offsetX, offsetY, sizeY, sizeY, CP.background);
+      backButton.displayBackMain();
     }
     
     // Draw the scene buttons

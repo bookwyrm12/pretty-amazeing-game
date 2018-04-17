@@ -2,6 +2,8 @@ import processing.sound.*;
 
 App app;
 SceneMainMenu mm;
+CharacterPlayer player;
+SceneOptions options;
 Music music;
 ColorPallete CP;
 
@@ -11,7 +13,7 @@ void setup() {
   player = new CharacterPlayer();
   mm = new SceneMainMenu(app);
   music = new Music();
-  music.play_music();
+  //music.play_music();
   CP = new ColorPallete();
 }
 
