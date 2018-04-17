@@ -1,10 +1,15 @@
+import processing.sound.*;
+
 App app;
 SceneMainMenu mm;
+SoundFile music;
 
 void setup() {
   size(800, 600);
   app = new App();
   mm = new SceneMainMenu(app);
+  music = new SoundFile(this, "Puzzle-Game-Looping.mp3");
+  music.loop(0.9, 1, 1);
 }
 
 void draw() {
