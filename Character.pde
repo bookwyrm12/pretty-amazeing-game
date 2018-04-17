@@ -12,10 +12,6 @@ class Character {
   Vec2 pos;
   //float offsetX, offsetY;
   
-  // previous coordinates in the maze grid
-  //int prevx, prevy;
-  //int moveX, moveY;
-  
   // direction the icon should face
   float dir, prevDir;
   
@@ -44,6 +40,10 @@ class Character {
   void setIconColor(color newcolor) {
     this.icon.disableStyle();
     this.icon.setFill(newcolor);
+  }
+  
+  void resetPos(Maze maze) {
+    setCoords(maze, maze.startX, maze.startY);
   }
   
   void setCoords(Maze maze, int newx, int newy) {

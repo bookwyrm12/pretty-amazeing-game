@@ -41,6 +41,8 @@ class SceneLevel extends Scene {
         if (this.maze.endX == player.posx && this.maze.endY == player.posy) {
           player.completeLevel(this.id);
           println("Nice! You completed Level " + this.id);
+          player.resetPos(this.maze);
+          this.levelSelect.goToLevelSelect();
         }
         this.maze.draw(player, t);
       }
