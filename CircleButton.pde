@@ -2,12 +2,14 @@ class CircleButton {
   PShape img;
   float x, y, w, h;
   boolean over;
+  color fillCol;
   
-  CircleButton (float x, float y, float w, float h) { 
+  CircleButton (float x, float y, float w, float h, color fillCol) { 
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
+    this.fillCol = fillCol;
   }
   
   CircleButton (float x, float y, float w, float h, String img) { 
@@ -29,7 +31,7 @@ class CircleButton {
   void displayNoImage() {
     stroke(CP.line);
     strokeWeight(2);
-    fill(CP.background);
+    fill(fillCol);
     ellipse(x, y, w, h);
   }
   

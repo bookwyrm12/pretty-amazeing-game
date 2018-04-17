@@ -3,6 +3,7 @@ import processing.sound.*;
 App app;
 SceneMainMenu mm;
 Music music;
+ColorPallete CP;
 
 void setup() {
   size(800, 600);
@@ -10,6 +11,7 @@ void setup() {
   mm = new SceneMainMenu(app);
   music = new Music();
   music.play_music();
+  CP = new ColorPallete();
 }
 
 void draw() {

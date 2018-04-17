@@ -30,6 +30,18 @@ class SceneOptions extends Scene {
     pattern();
     
     
+    
+    { // Draw the back button
+      float offsetX = bounds.x + 1.0 / 24 * bounds.w;
+      float offsetY = bounds.y + 1.0 / 24 * bounds.w;
+      float sizeX = 1.0 / 8.0 * bounds.w;
+      float sizeY = 0.5 / 6.0 * bounds.h;
+      float tSize = 0.12 / 8.0 * bounds.w;
+      
+      backButton.bounds = new Rect(offsetX, offsetY, sizeX, sizeY);
+      backButton.textSize = tSize;
+      backButton.draw();
+    }
     { // If we're below a certain size, we want to fade out the scene buttons, so
       // we'll do that by rendering a translucent black rect over them.
       int height1 = 50;
@@ -94,9 +106,9 @@ class SceneOptions extends Scene {
     if(mousePressed && s.is_right()) music.stop_music();
     
     //Colour Select
-    CircleButton blue = new CircleButton(bounds.x + bounds.w/2 - bounds.h/7, bounds.y + 2*bounds.h/3, bounds.h/20, bounds.h/20);
-    CircleButton purple = new CircleButton(bounds.x + bounds.w/2, bounds.y + 2*bounds.h/3, bounds.h/20, bounds.h/20);
-    CircleButton dark = new CircleButton(bounds.x + bounds.w/2  + bounds.h/7, bounds.y + 2*bounds.h/3, bounds.h/20, bounds.h/20);
+    CircleButton blue = new CircleButton(bounds.x + bounds.w/2 - bounds.h/7, bounds.y + 2*bounds.h/3, bounds.h/20, bounds.h/20, ColorPallete.darkBlue);
+    CircleButton purple = new CircleButton(bounds.x + bounds.w/2, bounds.y + 2*bounds.h/3, bounds.h/20, bounds.h/20, ColorPallete.darkPurple);
+    CircleButton dark = new CircleButton(bounds.x + bounds.w/2  + bounds.h/7, bounds.y + 2*bounds.h/3, bounds.h/20, bounds.h/20, ColorPallete.black);
     blue.displayNoImage();
     purple.displayNoImage();
     dark.displayNoImage();
@@ -104,15 +116,15 @@ class SceneOptions extends Scene {
     //blue.update();
     purple.update();
     dark.update();
-    if(blue.over && mousePressed) {
-    } else if(purple.over && mousePressed) {
-    } else if(dark.over && mousePressed) {
+    if(blue.over && mousePressed) { CP.setBlue();
+    } else if(purple.over && mousePressed) { CP.setPurple();
+    } else if(dark.over && mousePressed) { CP.setDark();
     }
     
     //Character Select
-    CircleButton char1 = new CircleButton(bounds.x + bounds.w/2 - bounds.h/7, bounds.y + 4*bounds.h/5, bounds.h/20, bounds.h/20);
-    CircleButton char2 = new CircleButton(bounds.x + bounds.w/2, bounds.y + 4*bounds.h/5, bounds.h/20, bounds.h/20);
-    CircleButton char3 = new CircleButton(bounds.x + bounds.w/2  + bounds.h/7, bounds.y + 4*bounds.h/5, bounds.h/20, bounds.h/20);
+    CircleButton char1 = new CircleButton(bounds.x + bounds.w/2 - bounds.h/7, bounds.y + 4*bounds.h/5, bounds.h/20, bounds.h/20, CP.background);
+    CircleButton char2 = new CircleButton(bounds.x + bounds.w/2, bounds.y + 4*bounds.h/5, bounds.h/20, bounds.h/20, CP.background);
+    CircleButton char3 = new CircleButton(bounds.x + bounds.w/2  + bounds.h/7, bounds.y + 4*bounds.h/5, bounds.h/20, bounds.h/20, CP.background);
     char1.displayNoImage();
     char2.displayNoImage();
     char3.displayNoImage();
