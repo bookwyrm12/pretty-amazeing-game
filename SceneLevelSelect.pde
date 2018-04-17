@@ -1,6 +1,7 @@
 class SceneLevelSelect extends Scene {
   SceneMainMenu mainMenu;
   SceneButtonList sceneButtons;
+  TextButton backButton;
   
   SceneLevelSelect(SceneMainMenu mainMenu) {
     super(mainMenu.app);
@@ -10,6 +11,9 @@ class SceneLevelSelect extends Scene {
     this.sceneButtons.createButton("level 1", new SceneLevel1(this));
     this.sceneButtons.createButton("level 2", new SceneLevel2(this));
     this.sceneButtons.createButton("level 3", new SceneLevel3(this));
+    this.backButton = new TextButton("Back");
+    this.backButton.rectColor = color(255);
+    this.backButton.textColor = color(0);
   }
   
   void tick() {
@@ -21,11 +25,13 @@ class SceneLevelSelect extends Scene {
     
     // Check for button clicks
     if (controlsActive) {
-      boolean clickedButton = sceneButtons.handleClicks();
       
-      // If no button was clicked, but the mouse was, pretend that the user
-      // clicked an imaginary "back" button
-      if (!clickedButton && app.wasMouseClicked()) {
+      // Check for level selection
+      sceneButtons.handleClicks();
+      
+      // Check for back button
+      backButton.tick();
+      if (backButton.wasClicked) {
         mainMenu.goToMainMenu();
       }
     }
@@ -34,10 +40,22 @@ class SceneLevelSelect extends Scene {
   void draw() {
     pattern();
     
-    // Draw the buttons
+    { // Draw the back button
+      float offsetX = bounds.x + 1.0 / 24 * bounds.w;
+      float offsetY = bounds.y + 1.0 / 24 * bounds.w;
+      float sizeX = 1.0 / 8.0 * bounds.w;
+      float sizeY = 0.5 / 6.0 * bounds.h;
+      float tSize = 0.12 / 8.0 * bounds.w;
+      
+      backButton.bounds = new Rect(offsetX, offsetY, sizeX, sizeY);
+      backButton.textSize = tSize;
+      backButton.draw();
+    }
+    
+    // Draw the scene buttons
     sceneButtons.draw();
     
-    { // If we're below a certain size, we want to fade out the scene buttons, so
+    { // If we're below a certain size, we want to fade out the buttons, so
       // we'll do that by rendering a translucent black rect over them.
       int height1 = 50;
       int height2 = 600;
@@ -68,8 +86,9 @@ class SceneLevelSelect extends Scene {
         size = lerp(size1, size2, t);
       }
       
-      fill(CP.lightText);
       textFont(createFont(FC.font, 1));
+      float textAlpha = 255 * (1 - sceneButtons.getMaxButtonEasedZoom());
+      fill(CP.lightText, textAlpha);
       textAlign(CENTER, CENTER);
       textSize(size);
       text("Play", pos.x, pos.y-5);
