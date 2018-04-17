@@ -2,14 +2,14 @@ import processing.sound.*;
 
 App app;
 SceneMainMenu mm;
-SoundFile music;
+Music music;
 
 void setup() {
   size(800, 600);
   app = new App();
   mm = new SceneMainMenu(app);
-  music = new SoundFile(this, "Puzzle-Game_Looping.mp3");
-  //music.loop(0.9, 1, 1);
+  music = new Music();
+  music.play_music();
 }
 
 void draw() {

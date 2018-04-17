@@ -84,5 +84,7 @@ class SceneOptions extends Scene {
     s.location(bounds.x + bounds.w/2, bounds.y + bounds.h/2, bounds.w/24, bounds.h/36);
     s.update();
     s.display();
+    if(mousePressed && s.is_left()) music.play_music();
+    if(mousePressed && s.is_right()) music.stop_music();
   }
 }
