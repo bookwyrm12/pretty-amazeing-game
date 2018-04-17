@@ -11,7 +11,7 @@ class SceneLevelSelect extends Scene {
     this.sceneButtons.createButton("level 1", new SceneLevel1(this));
     this.sceneButtons.createButton("level 2", new SceneLevel2(this));
     this.sceneButtons.createButton("level 3", new SceneLevel3(this));
-    this.backButton = new CircleButton(0, 0, 0, 0, 255);
+    this.backButton = new CircleButton(0, 0, 0, 0, 255, 255);
   }
   
   void tick() {
@@ -47,11 +47,10 @@ class SceneLevelSelect extends Scene {
       int height1 = 50;
       int height2 = 600;
       float t = constrain((bounds.h - height1) / (height2 - height1), 0, 1);
-      float tAlpha = t * 255;
+      float tAlpha = (1 - t) * 255;
       
-      backButton.bounds(offsetX, offsetY, sizeY, sizeY, CP.background);
+      backButton.bounds(offsetX, offsetY, sizeY, sizeY, CP.background, CP.line);
       backButton.displayBackMain();
-      backButton.setAlpha(tAlpha);
     }
     
     // Draw the scene buttons

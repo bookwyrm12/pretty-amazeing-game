@@ -15,7 +15,7 @@ class SceneLevel extends Scene {
     this.mazePos     = new Vec2(200, 100);
     this.maze        = new Maze(this.wCells, this.hCells, this.mazePos);
     this.gen         = new MazeGenerator();
-    this.backButton = new CircleButton(0, 0, 0, 0, 255);
+    this.backButton = new CircleButton(0, 0, 0, 0, 255, 255);
   }
   
   void tick() {
@@ -39,7 +39,7 @@ class SceneLevel extends Scene {
       float offsetY = bounds.y + 1.0 / 20 * bounds.w;
       float sizeY = 0.5 / 8.0 * bounds.h;
       
-      backButton.bounds(offsetX, offsetY, sizeY, sizeY, CP.background);
+      backButton.bounds(offsetX, offsetY, sizeY, sizeY, CP.lightText, CP.darkText);
       backButton.displayBackLevel();
     }
     

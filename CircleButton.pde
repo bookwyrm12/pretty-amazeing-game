@@ -2,8 +2,18 @@ class CircleButton {
   PShape img;
   float x, y, w, h;
   boolean over;
-  color fillCol;
+  color fillCol, lineCol;
   boolean wasClicked;
+  
+  CircleButton (float x, float y, float w, float h, color fillCol, color lineCol) { 
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+    this.fillCol = fillCol;
+    this.lineCol = lineCol;
+    this.wasClicked = false;
+  }
   
   CircleButton (float x, float y, float w, float h, color fillCol) { 
     this.x = x;
@@ -31,12 +41,13 @@ class CircleButton {
     }
   }
   
-  void bounds(float x, float y, float w, float h, color fillCol) { 
+  void bounds(float x, float y, float w, float h, color fillCol, color lineCol) { 
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
     this.fillCol = fillCol;
+    this.lineCol = lineCol;
   }
   
   void displayNoImage() {
@@ -55,7 +66,7 @@ class CircleButton {
   }
   
   void displayBackMain() {
-    stroke(CP.line);
+    stroke(lineCol);
     strokeWeight(2);
     fill(CP.fillCol);
     ellipse(x, y, w, h);
@@ -65,9 +76,9 @@ class CircleButton {
   }
   
   void displayBackLevel() {
-    stroke(CP.darkText);
+    stroke(lineCol);
     strokeWeight(2);
-    fill(CP.lightText);
+    fill(fillCol);
     ellipse(x, y, w, h);
     line(x - w/3, y, x + w/3, y);
     line(x - w/3, y, x, y - w/3);
