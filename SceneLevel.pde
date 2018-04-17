@@ -48,7 +48,7 @@ class SceneLevel extends Scene {
       textFont(createFont(FC.font, 1));
       textAlign(CENTER, CENTER);
       textSize(bounds.h*0.618);
-      text("Level 1", bounds.getCenter().x, bounds.getCenter().y-5);
+      text("Level " + this.id, bounds.getCenter().x, bounds.getCenter().y-5);
     }
     
     // TODO
