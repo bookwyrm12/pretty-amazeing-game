@@ -47,9 +47,10 @@ class SceneLevelSelect extends Scene {
       int height1 = 50;
       int height2 = 600;
       float t = constrain((bounds.h - height1) / (height2 - height1), 0, 1);
-      float tAlpha = (1 - t) * 255;
+      float tAlpha = t * 255;
       
       backButton.bounds(offsetX, offsetY, sizeY, sizeY, CP.background, CP.line);
+      backButton.alpha = tAlpha;
       backButton.displayBackMain();
     }
     

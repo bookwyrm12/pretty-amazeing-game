@@ -39,7 +39,14 @@ class SceneLevel extends Scene {
       float offsetY = bounds.y + 1.0 / 20 * bounds.w;
       float sizeY = 0.5 / 8.0 * bounds.h;
       
+      // We only want to render the button when the scene is active
+      int height1 = 50;
+      int height2 = 600;
+      float t = constrain((bounds.h - height1) / (height2 - height1), 0, 1);
+      float tAlpha = t * 255;
+      
       backButton.bounds(offsetX, offsetY, sizeY, sizeY, CP.lightText, CP.darkText);
+      backButton.alpha = tAlpha;
       backButton.displayBackLevel();
     }
     

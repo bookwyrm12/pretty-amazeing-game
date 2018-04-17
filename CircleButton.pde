@@ -3,6 +3,7 @@ class CircleButton {
   float x, y, w, h;
   boolean over;
   color fillCol, lineCol;
+  float alpha; // 0 - 255
   boolean wasClicked;
   
   CircleButton (float x, float y, float w, float h, color fillCol, color lineCol) { 
@@ -12,6 +13,7 @@ class CircleButton {
     this.h = h;
     this.fillCol = fillCol;
     this.lineCol = lineCol;
+    this.alpha = 255;
     this.wasClicked = false;
   }
   
@@ -21,6 +23,7 @@ class CircleButton {
     this.w = w;
     this.h = h;
     this.fillCol = fillCol;
+    this.alpha = 255;
     this.wasClicked = false;
   }
   
@@ -30,6 +33,7 @@ class CircleButton {
     this.w = w;
     this.h = h;
     this.img = loadShape(img);
+    this.alpha = 255;
     this.wasClicked = false;
   }
   
@@ -51,24 +55,24 @@ class CircleButton {
   }
   
   void displayNoImage() {
-    stroke(CP.line);
+    stroke(CP.line, alpha);
     strokeWeight(2);
-    fill(fillCol);
+    fill(fillCol, alpha);
     ellipse(x, y, w, h);
   }
   
   void displayImage() {
-    stroke(CP.line);
+    stroke(CP.line, alpha);
     strokeWeight(2);
-    fill(CP.lightText);
+    fill(CP.lightText, alpha);
     ellipse(x, y, w, h);
     shape(this.img, this.x - 3*this.w/8, this.y - 3*this.h/8, 3*this.w/4, 3*this.h/4);
   }
   
   void displayBackMain() {
-    stroke(lineCol);
+    stroke(lineCol, alpha);
     strokeWeight(2);
-    fill(CP.fillCol);
+    fill(CP.fillCol, alpha);
     ellipse(x, y, w, h);
     line(x - w/3, y, x + w/3, y);
     line(x - w/3, y, x, y - w/3);
@@ -76,9 +80,9 @@ class CircleButton {
   }
   
   void displayBackLevel() {
-    stroke(lineCol);
+    stroke(lineCol, alpha);
     strokeWeight(2);
-    fill(fillCol);
+    fill(fillCol, alpha);
     ellipse(x, y, w, h);
     line(x - w/3, y, x + w/3, y);
     line(x - w/3, y, x, y - w/3);
