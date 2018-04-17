@@ -8,12 +8,8 @@ class Character {
   // coordinates in the maze grid
   int posx, posy;
   
-  // global coordinates
-  Vec2 pos;
-  //float offsetX, offsetY;
-  
   // direction the icon should face
-  float dir, prevDir;
+  float rotate;
   
   Character() {
     this.icon = loadShape("char_ladybug.svg"); // default icon
@@ -44,6 +40,7 @@ class Character {
   
   void resetPos(Maze maze) {
     setCoords(maze, maze.startX, maze.startY);
+    this.rotate = 0;
   }
   
   void setCoords(Maze maze, int newx, int newy) {
@@ -51,27 +48,7 @@ class Character {
     if (isValidPos(maze, newx, newy)) {
       this.posx = newx;
       this.posy = newy;
-      this.pos = maze.tileCoords(newx, newy, "CENTER");
     }
-  }
-  
-  void changeDir(int newx, int newy) {
-    float newDir = 0;
-    
-    if (newx - this.posx == -1) {
-      //this.offsetX = 0;
-      //this.offsetY = 0;
-      newDir = 3 * PI / 2;
-    } else if (newx - this.posx == 1) {
-      newDir = PI / 2;
-    } else if (newy - this.posy == -1) {
-      newDir = 0;
-    } else if (newy - this.posy == 1) {
-      newDir = PI;
-    }
-    
-    this.dir = newDir - this.prevDir;
-    //println(this.dir);
   }
   
   void draw(Maze maze) {
@@ -81,33 +58,21 @@ class Character {
     // Get current position coordinates
     Vec2 coords = maze.tileCoords(this.posx, this.posy, "CENTER");
     
-    // Draw icon
-    pushMatrix();
+    // Set icon color
     fill(cPersianGreen);
     stroke(cPersianGreen);
     setIconColor(cPersianGreen);
     
+    pushMatrix();
     shapeMode(CENTER);
-    //this.icon.rotate(this.dir); // TODO
     
-    //if (this.dir == PI / 2) {
-    //  coords = maze.tileCoords(this.posx - 1, this.posy, "CENTER");
-    //  println("right");
-    //} else if (this.dir == PI) {
-    //  coords = maze.tileCoords(this.posx - 1, this.posy - 1, "CENTER");
-    //  println("down");
-    //} else if (this.dir == 3 * PI / 2) {
-    //  coords = maze.tileCoords(this.posx, this.posy - 1, "CENTER");
-    //  println("left");
-    //} else {
-    //  coords = maze.tileCoords(this.posx, this.posy, "CENTER");
-    //  println("up");
-    //}
+    // Rotate icon
+    translate(coords.x, coords.y);
+    rotate(this.rotate * (PI/2));
     
-    this.prevDir = this.dir;
-    this.dir = 0;
-    shape(this.icon, coords.x, coords.y, this.iconW, this.iconH);
-    //shape(this.icon, this.pos.x, this.pos.y, this.iconW, this.iconH);
+    // Draw icon
+    shape(this.icon, 0, 0, this.iconW, this.iconH);
+    
     shapeMode(CORNER);
     popMatrix();
   }
@@ -118,21 +83,25 @@ class Character {
     
     if (app.wasKeyPressed('w')) {
       newy = this.posy - 1;
+      this.rotate = 0;
     } else if (app.wasKeyPressed('a')) {
       newx = this.posx - 1;
+      this.rotate = 3;
     } else if (app.wasKeyPressed('s')) {
       newy = this.posy + 1;
+      this.rotate = 2;
     } else if (app.wasKeyPressed('d')) {
       newx = this.posx + 1;
+      this.rotate = 1;
     }
     
+    // If new position = current position, don't bother moving
     if (newx == this.posx && newy == this.posy) {
       return;
     }
     
     // Check if move is possible
     if (isValidMove(maze, newx, newy)) {
-      changeDir(newx, newy);
       this.posx = newx;
       this.posy = newy;
     }
@@ -145,7 +114,7 @@ class Character {
     // 2. Check if tile is wall or path
     if (!maze.isPath(newx, newy)) return false;
     
-    // 4. If we pass the above tests, the move is valid
+    // 3. If we pass the above tests, the move is valid
     return true;
   }
   
