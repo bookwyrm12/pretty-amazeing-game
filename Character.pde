@@ -10,11 +10,11 @@ class Character {
   
   // global coordinates
   Vec2 pos;
-  float offsetX, offsetY;
+  //float offsetX, offsetY;
   
   // previous coordinates in the maze grid
-  int prevx, prevy;
-  int moveX, moveY;
+  //int prevx, prevy;
+  //int moveX, moveY;
   
   // direction the icon should face
   float dir, prevDir;
@@ -59,8 +59,8 @@ class Character {
     float newDir = 0;
     
     if (newx - this.posx == -1) {
-      this.offsetX = 0;
-      this.offsetY = 0;
+      //this.offsetX = 0;
+      //this.offsetY = 0;
       newDir = 3 * PI / 2;
     } else if (newx - this.posx == 1) {
       newDir = PI / 2;
@@ -76,12 +76,7 @@ class Character {
   
   void draw(Maze maze) {
     // Update position first
-    if (keyPressed) {
-      move(maze);
-    } else {
-      moveX = 0;
-      moveY = 0;
-    }
+    move(maze);
     
     // Get current position coordinates
     Vec2 coords = maze.tileCoords(this.posx, this.posy, "CENTER");
@@ -121,23 +116,18 @@ class Character {
     int newx = this.posx;
     int newy = this.posy;
     
-    // Get new position attempt
-    if (key == 'A' || key == 'a' || (key == CODED && keyCode == LEFT)) {
-      newx = this.posx - 1;
-      moveX = -1;
-      
-    } else if (key == 'D' || key == 'd' || (key == CODED && keyCode == RIGHT)) {
-      newx = this.posx + 1;
-      moveX = 1;
-      
-    } else if (key == 'W' || key == 'w' || (key == CODED && keyCode == UP)) {
+    if (app.wasKeyPressed('w')) {
       newy = this.posy - 1;
-      moveY = -1;
-      
-    } else if (key == 'S' || key == 's' || (key == CODED && keyCode == DOWN)) {
+    } else if (app.wasKeyPressed('a')) {
+      newx = this.posx - 1;
+    } else if (app.wasKeyPressed('s')) {
       newy = this.posy + 1;
-      moveY = 1;
-      
+    } else if (app.wasKeyPressed('d')) {
+      newx = this.posx + 1;
+    }
+    
+    if (newx == this.posx && newy == this.posy) {
+      return;
     }
     
     // Check if move is possible

@@ -21,6 +21,10 @@ void draw() {
   app.postTick();
 }
 
+void keyPressed() {
+  app.onKeyPress(key, keyCode);
+}
+
 /*Maze maze;
 CharacterPlayer player;
 
