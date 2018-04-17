@@ -51,12 +51,12 @@ class Character {
     }
   }
   
-  void draw(Maze maze) {
+  void draw(Maze maze, float scaleFactor) {
     // Update position first
     move(maze);
     
     // Get current position coordinates
-    Vec2 coords = maze.tileCoords(this.posx, this.posy, "CENTER");
+    Vec2 coords = maze.tileCoords(this.posx, this.posy, "CENTER", scaleFactor);
     
      //Set icon color
     fill(CP.line);
@@ -66,9 +66,10 @@ class Character {
     pushMatrix();
     shapeMode(CENTER);
     
-    // Rotate icon
+    // Transform the icon
     translate(coords.x, coords.y);
     rotate(this.rotate * (PI/2));
+    scale(scaleFactor);
     
     // Draw icon
     shape(this.icon, 0, 0, this.iconW, this.iconH);

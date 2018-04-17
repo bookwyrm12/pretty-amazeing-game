@@ -60,11 +60,14 @@ class SceneLevel extends Scene {
     
     // TODO
     { // Draw the maze
-      int height1 = 100; // 300
-      int height2 = 400; // 600
+      int height1 = 100; //100; // 300
+      int height2 = 600; //400; // 600
       float t = constrain((bounds.h - height1) / (height2 - height1), 0, 1);
       
       if (t > 0) {
+        // Center the maze
+        this.maze.setPositionFromCenter(bounds.getCenter());
+        
         // Set player coordinates to beginning of maze when starting the level
         if (!this.levelOn) {
           player.setCoords(maze, this.maze.startX, this.maze.startY);
