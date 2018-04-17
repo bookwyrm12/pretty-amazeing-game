@@ -77,14 +77,51 @@ class SceneOptions extends Scene {
     textFont(createFont(FC.font, 1));
     textAlign(CENTER, CENTER);
     textSize(bounds.h/16);
+    String[] text = {"Music", "Colours", "Character"};
+    float htitles = bounds.h/7;
+    float xtitles = bounds.x + bounds.w/2;
+    float ytitles = bounds.y + 4*bounds.h/10;
+    for(int i = 0; i < 3; i++) {
+      text(text[i], xtitles, ytitles + i*htitles + htitles/5);
+      line(xtitles - bounds.w/10, ytitles + i*htitles + htitles/2, xtitles + bounds.w/10, ytitles + i*htitles + htitles/2);
+    }
     
     //Music slider
-    text("Music", bounds.x + bounds.w/2, bounds.y + 5*bounds.h/12);
-    line(bounds.x + 3*bounds.w/7, bounds.y + 6*bounds.h/13, bounds.x + 4*bounds.w/7, bounds.y + 6*bounds.h/13);
     s.location(bounds.x + bounds.w/2, bounds.y + bounds.h/2, bounds.w/24, bounds.h/36);
     s.update();
     s.display();
     if(mousePressed && s.is_left()) music.play_music();
     if(mousePressed && s.is_right()) music.stop_music();
+    
+    //Colour Select
+    CircleButton blue = new CircleButton(bounds.x + bounds.w/2 - bounds.h/7, bounds.y + 2*bounds.h/3, bounds.h/20, bounds.h/20);
+    CircleButton purple = new CircleButton(bounds.x + bounds.w/2, bounds.y + 2*bounds.h/3, bounds.h/20, bounds.h/20);
+    CircleButton dark = new CircleButton(bounds.x + bounds.w/2  + bounds.h/7, bounds.y + 2*bounds.h/3, bounds.h/20, bounds.h/20);
+    blue.displayNoImage();
+    purple.displayNoImage();
+    dark.displayNoImage();
+    
+    //blue.update();
+    purple.update();
+    dark.update();
+    if(blue.over && mousePressed) {
+    } else if(purple.over && mousePressed) {
+    } else if(dark.over && mousePressed) {
+    }
+    
+    //Character Select
+    CircleButton char1 = new CircleButton(bounds.x + bounds.w/2 - bounds.h/7, bounds.y + 4*bounds.h/5, bounds.h/20, bounds.h/20);
+    CircleButton char2 = new CircleButton(bounds.x + bounds.w/2, bounds.y + 4*bounds.h/5, bounds.h/20, bounds.h/20);
+    CircleButton char3 = new CircleButton(bounds.x + bounds.w/2  + bounds.h/7, bounds.y + 4*bounds.h/5, bounds.h/20, bounds.h/20);
+    char1.displayNoImage();
+    char2.displayNoImage();
+    char3.displayNoImage();
+    char1.update();
+    char2.update();
+    char3.update();
+    if(char1.over && mousePressed) {
+    } else if(char2.over && mousePressed) {
+    } else if(char3.over && mousePressed) {
+    }
   }
 }
