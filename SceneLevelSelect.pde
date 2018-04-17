@@ -47,8 +47,15 @@ class SceneLevelSelect extends Scene {
       float sizeY = 0.5 / 6.0 * bounds.h;
       float tSize = 0.12 / 8.0 * bounds.w;
       
+      // We only want to render the button when the scene is active
+      int height1 = 50;
+      int height2 = 600;
+      float t = constrain((bounds.h - height1) / (height2 - height1), 0, 1);
+      float tAlpha = t * 255;
+      
       backButton.bounds = new Rect(offsetX, offsetY, sizeX, sizeY);
       backButton.textSize = tSize;
+      backButton.setAlpha(tAlpha);
       backButton.draw();
     }
     
@@ -62,13 +69,20 @@ class SceneLevelSelect extends Scene {
       float t = constrain((bounds.h - height1) / height2, 0, 1);
       float alpha = (1 - t) * 255;
       
+      // The rect should only cover the scene buttons. We'll have to expand the rect
+      // slightly to account for the additional octagon pattern around the buttons
+      Rect r = sceneButtons.getBounds();
+      r.x -= 10;
+      r.y -= 10;
+      r.w += 20;
+      r.h += 20;
+      
       fill(CP.background, alpha);
       noStroke();
-      rect(bounds.x + 2, bounds.y + 2, bounds.w - 2, bounds.h - 2);
-      //rect(bounds.x + bounds.w / 8, bounds.y + bounds.h / 4, 3 * bounds.w / 4, bounds.h / 2);
+      rect(r.x, r.y, r.w, r.h);
     }
     
-    { // Draw options label
+    { // Draw play label
       Vec2 pos1 = bounds.getCenter();
       Vec2 pos2 = bounds.getCenter().sub(new Vec2(0, bounds.h / 4));
       Vec2 pos = pos1;
