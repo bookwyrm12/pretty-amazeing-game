@@ -22,7 +22,7 @@ class SceneOptions extends Scene {
       // we'll do that by rendering a translucent black rect over them.
       int height1 = 50;
       int height2 = 600;
-      float t = constrain((bounds.h - height1) / height2, 0, 1);
+      float t = constrain((bounds.h - height1) / (height2 - height1), 0, 1);
       float alpha = (1 - t) * 255;
       
       fill(CP.background, alpha);
@@ -42,7 +42,7 @@ class SceneOptions extends Scene {
       
       int height1 = 50;
       int height2 = 600;
-      float t = constrain((bounds.h - height1) / height2, 0, 1);
+      float t = constrain((bounds.h - height1) / (height2 - height1), 0, 1);
       
       if (bounds.h > height1) {
         pos = pos1.lerp(pos2, t);
