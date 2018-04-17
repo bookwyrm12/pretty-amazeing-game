@@ -44,3 +44,10 @@ class SceneLevel2 extends Scene {
     text("Level 2", bounds.getCenter().x, bounds.getCenter().y-5);
   }
 }
+
+// class SceneLevel2 extends SceneLevel {
+//   SceneLevel2(SceneLevelSelect levelSelect) {
+//     super(levelSelect, 2);
+//     gen.generate(maze, 1496260096);
+//   }
+// }
