@@ -1,16 +1,28 @@
 class SceneOptions extends Scene {
   SceneMainMenu mainMenu;
+  TextButton backButton;
+  Slider s;
   
   SceneOptions(SceneMainMenu mainMenu) {
     super(mainMenu.app);
     this.mainMenu = mainMenu;
+    this.backButton = new TextButton("Back");
+    this.backButton.rectColor = color(255);
+    this.backButton.textColor = color(0);
+    s = new Slider(bounds.x + bounds.w/2, bounds.w/24);
   }
   
   void tick() {
     boolean controlsActive = (bounds.w > 500);
     
-    if (controlsActive && app.wasMouseClicked()) {
-      this.mainMenu.goToMainMenu();
+    // Check for button clicks
+    if (controlsActive) {
+      
+      // Check for back button
+      backButton.tick();
+      if (backButton.wasClicked) {
+        mainMenu.goToMainMenu();
+      }
     }
   }
   
@@ -60,5 +72,17 @@ class SceneOptions extends Scene {
   void pattern() {
     ButtonPattern bp = new ButtonPattern(bounds.x, bounds.y, bounds.w, bounds.h);
     bp.displayMain();
+    
+    fill(CP.lightText);
+    textFont(createFont(FC.font, 1));
+    textAlign(CENTER, CENTER);
+    textSize(bounds.h/16);
+    
+    //Music slider
+    text("Music", bounds.x + bounds.w/2, bounds.y + 5*bounds.h/12);
+    line(bounds.x + 3*bounds.w/7, bounds.y + 6*bounds.h/13, bounds.x + 4*bounds.w/7, bounds.y + 6*bounds.h/13);
+    s.location(bounds.x + bounds.w/2, bounds.y + bounds.h/2, bounds.w/24, bounds.h/36);
+    s.update();
+    s.display();
   }
 }
