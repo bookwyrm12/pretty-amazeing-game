@@ -3,6 +3,8 @@ class SceneLevel extends Scene {
   Vec2 mazePos;
   Maze maze;
   SceneLevelSelect levelSelect;
+  MazeGenerator gen;
+  boolean levelOn;
   
   SceneLevel(SceneLevelSelect levelSelect, int id) {
     super(levelSelect.app);
@@ -11,6 +13,7 @@ class SceneLevel extends Scene {
     setMazeSize(this.id);
     this.mazePos     = new Vec2(200, 100);
     this.maze        = new Maze(this.wCells, this.hCells, this.mazePos);
+    this.gen         = new MazeGenerator();
   }
   
   void tick() {
@@ -38,6 +41,12 @@ class SceneLevel extends Scene {
       float t = constrain((bounds.h - height1) / (height2 - height1), 0, 1);
       
       if (t > 0) {
+        // Set player coordinates to beginning of maze when starting the level
+        if (!this.levelOn) {
+          player.setCoords(maze, this.maze.startX, this.maze.startY);
+          this.levelOn = true;
+        }
+        
         if (this.maze.endX == player.posx && this.maze.endY == player.posy) {
           player.completeLevel(this.id);
           println("Nice! You completed Level " + this.id);
@@ -45,7 +54,13 @@ class SceneLevel extends Scene {
           this.levelSelect.goToLevelSelect();
         }
         this.maze.draw(player, t);
+      } else {
+        this.levelOn = false;
       }
+    }
+    
+    { // 
+      
     }
   }
   
