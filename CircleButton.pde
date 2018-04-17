@@ -28,6 +28,14 @@ class CircleButton {
     }
   }
   
+  void bounds(float x, float y, float w, float h, color fillCol) { 
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+    this.fillCol = fillCol;
+  }
+  
   void displayNoImage() {
     stroke(CP.line);
     strokeWeight(2);
@@ -42,6 +50,13 @@ class CircleButton {
     ellipse(x, y, w, h);
     shape(this.img, this.x, this.y, this.w, this.h);
     noLoop();
+  }
+  
+  void displayBack() {
+    stroke(CP.line);
+    strokeWeight(2);
+    fill(fillCol);
+    ellipse(x, y, w, h);
   }
   
   boolean overCircle(float x, float y, float diameter) {

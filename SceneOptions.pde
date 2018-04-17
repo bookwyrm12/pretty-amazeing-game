@@ -1,14 +1,14 @@
 class SceneOptions extends Scene {
   SceneMainMenu mainMenu;
-  TextButton backButton;
+  CircleButton backButton;
   Slider s;
   
   SceneOptions(SceneMainMenu mainMenu) {
     super(mainMenu.app);
     this.mainMenu = mainMenu;
-    this.backButton = new TextButton("Back");
-    this.backButton.rectColor = color(255);
-    this.backButton.textColor = color(0);
+    this.backButton = new CircleButton(0, 0, 0, 0, 255);
+    //this.backButton.rectColor = color(255);
+    //this.backButton.textColor = color(0);
     s = new Slider(bounds.x + bounds.w/2, bounds.w/24);
   }
   
@@ -19,8 +19,7 @@ class SceneOptions extends Scene {
     if (controlsActive) {
       
       // Check for back button
-      backButton.tick();
-      if (backButton.wasClicked) {
+      if (backButton.over && mousePressed) {
         mainMenu.goToMainMenu();
       }
     }
@@ -29,8 +28,6 @@ class SceneOptions extends Scene {
   void draw() {
     pattern();
     
-    
-    
     { // Draw the back button
       float offsetX = bounds.x + 1.0 / 24 * bounds.w;
       float offsetY = bounds.y + 1.0 / 24 * bounds.w;
@@ -38,9 +35,14 @@ class SceneOptions extends Scene {
       float sizeY = 0.5 / 6.0 * bounds.h;
       float tSize = 0.12 / 8.0 * bounds.w;
       
-      backButton.bounds = new Rect(offsetX, offsetY, sizeX, sizeY);
-      backButton.textSize = tSize;
-      backButton.draw();
+      backButton.bounds(offsetX, offsetY, sizeY, sizeY, CP.background);
+      //backButton.textSize = tSize;
+      //backButton.draw();
+      backButton.displayBack();
+      
+      if (backButton.over && mousePressed) {
+        mainMenu.goToMainMenu();
+      }
     }
     { // If we're below a certain size, we want to fade out the scene buttons, so
       // we'll do that by rendering a translucent black rect over them.
@@ -113,7 +115,7 @@ class SceneOptions extends Scene {
     purple.displayNoImage();
     dark.displayNoImage();
     
-    //blue.update();
+    blue.update();
     purple.update();
     dark.update();
     if(blue.over && mousePressed) { CP.setBlue();
