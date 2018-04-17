@@ -34,11 +34,11 @@ class SaveData {
   }
   
   int getNextID() {
-    // TODO
+    // TODO: future implementation
     return 0;
   }
   
   void updatePlayerData(CharacterPlayer player) {
-    // TODO
+    // TODO: future implementation
   }
 }
