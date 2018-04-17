@@ -17,9 +17,13 @@ class CharacterPlayer extends Character {
     this.completedLevels = new IntList();
   }
   
+  void load(int id) {
+    // not implemented/future idea
+  }
+  
   int generateID() {
-    // TODO
-    return 0;
+    SaveData save = new SaveData();
+    return save.getNextID();
   }
   
   void changeName(String name) {
@@ -46,6 +50,8 @@ class CharacterPlayer extends Character {
     // If the level is not already in completed list, add it
     if (!this.completedLevels.hasValue(level)) {
       this.completedLevels.append(level);
+      SaveData save = new SaveData();
+      save.updatePlayerData(this);
     }
   }
 }
