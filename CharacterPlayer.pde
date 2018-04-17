@@ -26,8 +26,12 @@ class CharacterPlayer extends Character {
     this.name = name;
   }
   
-  void randomName() {
-    // TODO
+  String randomName() {
+    // Yes, this is a great list of names to choose from.
+    // In the future, it would be cool to implement some NLP for this.
+    String[] randNames = { "April", "Joy", "Jamie" };
+    int randPicker = int(random(randNames.length));
+    return randNames[randPicker];
   }
   
   void changeIcon(String newIcon) {
