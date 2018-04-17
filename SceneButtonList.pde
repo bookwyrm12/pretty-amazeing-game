@@ -93,6 +93,16 @@ class SceneButtonList {
     }
   }
   
+  float getMaxButtonEasedZoom() {
+    float max = 0;
+    for (SceneButton button : buttons) {
+      if (max < button.easedZoom()) {
+        max = button.easedZoom();
+      }
+    }
+    return max;
+  }
+  
   private ArrayList<SceneButton> sortButtons() {
     // Stolen from: https://trinisoftinc.wordpress.com/2012/03/29/simple-sorting-algorithms-implementations-part-1/
     
