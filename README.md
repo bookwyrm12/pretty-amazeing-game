@@ -28,3 +28,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 * [README template](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
 * Inspiration: [Picross Luna](https://play.google.com/store/apps/developer?id=Floralmong+company)
+* Game music by: Eric Matyas [www.soundimage.org](http://www.soundimage.org)
