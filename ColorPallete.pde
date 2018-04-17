@@ -6,8 +6,8 @@ static class ColorPallete {
   static color beige = #F0F3BD;
   static color brown = #46351D;
   
-  static color line = green;
-  static color background = darkBlue;
+  static color line = blueGreen;
+  static color background = lightBlue;
   static color border = darkBlue;
   static color fillCol = darkBlue;
   static color lightText = beige;

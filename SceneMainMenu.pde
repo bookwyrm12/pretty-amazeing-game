@@ -35,8 +35,8 @@ class SceneMainMenu extends Scene {
     bp.displayMain();
     
     //Pattern
-    Flower f1 = new Flower(bounds.x + bounds.w, bounds.y + bounds.h, 750);
-    Flower f2 = new Flower(bounds.x, bounds.y, 750);
+    Flower f1 = new Flower(bounds.x + bounds.w, bounds.y + bounds.h, 500);
+    Flower f2 = new Flower(bounds.x, bounds.y, 500);
     f1.display();
     f2.display();
   }

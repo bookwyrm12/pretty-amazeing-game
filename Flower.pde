@@ -27,11 +27,15 @@ class Flower {
   }
   
   void petals(float level) {
-    float MAX = 8;
+    float MAX = 15;
     if(level < this.num) {
       float theta = level * radians(137.5);
       float r = MAX * sqrt(level);
-      ellipse(cos(theta)*r, sin(theta)*r, MAX, MAX);
+      pushMatrix();
+      translate(cos(theta)*r, sin(theta)*r);
+      rotate(theta);
+      quad(-MAX/2, 0, 0, -MAX/2, MAX/2, 0, 0, MAX/2);
+      popMatrix();
       petals(++level);
     }
   }

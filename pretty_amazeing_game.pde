@@ -5,6 +5,7 @@ void setup() {
   size(800, 600);
   app = new App();
   mm = new SceneMainMenu(app);
+  
 }
 
 void draw() {
