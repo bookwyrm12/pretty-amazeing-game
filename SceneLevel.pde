@@ -5,7 +5,7 @@ class SceneLevel extends Scene {
   SceneLevelSelect levelSelect;
   MazeGenerator gen;
   boolean levelOn;
-  TextButton backButton;
+  CircleButton backButton;
   
   SceneLevel(SceneLevelSelect levelSelect, int id) {
     super(levelSelect.app);
@@ -15,7 +15,7 @@ class SceneLevel extends Scene {
     this.mazePos     = new Vec2(200, 100);
     this.maze        = new Maze(this.wCells, this.hCells, this.mazePos);
     this.gen         = new MazeGenerator();
-    this.backButton  = new TextButton("Back");
+    this.backButton = new CircleButton(0, 0, 0, 0, 255, 255);
   }
   
   void tick() {
@@ -35,15 +35,12 @@ class SceneLevel extends Scene {
     bp.displayLevel();
     
     { // Draw the back button
-      float offsetX = bounds.x + 1.0 / 24 * bounds.w;
-      float offsetY = bounds.y + 1.0 / 24 * bounds.w;
-      float sizeX = 1.0 / 8.0 * bounds.w;
-      float sizeY = 0.5 / 6.0 * bounds.h;
-      float tSize = 0.12 / 8.0 * bounds.w;
+      float offsetX = bounds.x + 1.0 / 20 * bounds.w;
+      float offsetY = bounds.y + 1.0 / 20 * bounds.w;
+      float sizeY = 0.5 / 8.0 * bounds.h;
       
-      backButton.bounds = new Rect(offsetX, offsetY, sizeX, sizeY);
-      backButton.textSize = tSize;
-      backButton.draw();
+      backButton.bounds(offsetX, offsetY, sizeY, sizeY, CP.lightText, CP.darkText);
+      backButton.displayBackLevel();
     }
     
     { // Draw the dummy text
@@ -51,7 +48,7 @@ class SceneLevel extends Scene {
       textFont(createFont(FC.font, 1));
       textAlign(CENTER, CENTER);
       textSize(bounds.h*0.618);
-      text("Level 1", bounds.getCenter().x, bounds.getCenter().y-5);
+      text("Level " + this.id, bounds.getCenter().x, bounds.getCenter().y-5);
     }
     
     // TODO

@@ -2,19 +2,19 @@ import processing.sound.*;
 
 App app;
 SceneMainMenu mm;
-SoundFile music;
-SceneOptions options;
 CharacterPlayer player;
-
-color cPersianGreen = color(0, 168, 150); // TODO: Change this
+SceneOptions options;
+Music music;
+ColorPallete CP;
 
 void setup() {
   size(800, 600);
   app = new App();
   player = new CharacterPlayer();
   mm = new SceneMainMenu(app);
-  music = new SoundFile(this, "Puzzle-Game-Looping.mp3");
-  music.loop(0.9, 1, 1);
+  music = new Music();
+  //music.play_music();
+  CP = new ColorPallete();
 }
 
 void draw() {

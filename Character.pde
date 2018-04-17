@@ -58,10 +58,10 @@ class Character {
     // Get current position coordinates
     Vec2 coords = maze.tileCoords(this.posx, this.posy, "CENTER");
     
-    // Set icon color
-    fill(cPersianGreen);
-    stroke(cPersianGreen);
-    setIconColor(cPersianGreen);
+     //Set icon color
+    fill(CP.line);
+    stroke(CP.line);
+    setIconColor(CP.line);
     
     pushMatrix();
     shapeMode(CENTER);
