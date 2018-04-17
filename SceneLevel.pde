@@ -75,8 +75,16 @@ class SceneLevel extends Scene {
   //}
   
   void setMazeSize(int id) {
-    this.wCells = 18 + (id * 2);
-    this.hCells = 18 + (id * 2);
+    // Keep all levels the same size for now. This keeps
+    // the UI looking pretty, and we don't have to worry
+    // about moving the maze location around to recenter it.
+    this.wCells = 20;
+    this.hCells = 20;
+    
+    // Old code, changing the maze size based on the level.
+    // ie. Higher level = bigger = harder maze
+    //this.wCells = 18 + (id * 2);
+    //this.hCells = 18 + (id * 2);
   }
   
   //void draw(CharacterPlayer player) {
