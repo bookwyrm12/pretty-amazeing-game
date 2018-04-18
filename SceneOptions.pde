@@ -91,14 +91,14 @@ class SceneOptions extends Scene {
       line(xtitles - bounds.w/10, ytitles + i*htitles + htitles/2, xtitles + bounds.w/10, ytitles + i*htitles + htitles/2);
     }
     
-    //Music slider
+    // Music slider
     s.location(bounds.x + bounds.w/2, bounds.y + bounds.h/2, bounds.w/24, bounds.h/36);
     s.update();
     s.display();
     if(mousePressed && s.is_left()) music.play_music();
     if(mousePressed && s.is_right()) music.stop_music();
     
-    //Colour Select
+    // Colour Select
     CircleButton blue = new CircleButton(bounds.x + bounds.w/2 - bounds.h/7, bounds.y + 2*bounds.h/3, bounds.h/20, bounds.h/20, ColorPallete.darkBlue);
     CircleButton purple = new CircleButton(bounds.x + bounds.w/2, bounds.y + 2*bounds.h/3, bounds.h/20, bounds.h/20, ColorPallete.darkPurple);
     CircleButton dark = new CircleButton(bounds.x + bounds.w/2  + bounds.h/7, bounds.y + 2*bounds.h/3, bounds.h/20, bounds.h/20, ColorPallete.black);
@@ -114,7 +114,7 @@ class SceneOptions extends Scene {
     } else if(dark.over && mousePressed) { CP.setDark();
     }
     
-    //Character Select
+    // Character Select
     CircleButton char1 = new CircleButton(bounds.x + bounds.w/2 - bounds.h/7, bounds.y + 4*bounds.h/5, bounds.h/20, bounds.h/20, "char_ladybug.svg");
     CircleButton char2 = new CircleButton(bounds.x + bounds.w/2, bounds.y + 4*bounds.h/5, bounds.h/20, bounds.h/20, "char_owl.svg");
     CircleButton char3 = new CircleButton(bounds.x + bounds.w/2  + bounds.h/7, bounds.y + 4*bounds.h/5, bounds.h/20, bounds.h/20, "char_cat.svg");
