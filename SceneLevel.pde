@@ -51,7 +51,7 @@ class SceneLevel extends Scene {
     }
     
     { // Draw the dummy text
-      fill(#46351D);
+      fill(CP.darkText);
       textFont(createFont(FC.font, 1));
       textAlign(CENTER, CENTER);
       textSize(bounds.h*0.618);
