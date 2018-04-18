@@ -104,7 +104,7 @@ class Maze {
           fill(t.solid ? 255 : 0);
           textAlign(CENTER, CENTER);
           textSize(10);
-          text(t.debug, x * s + s/2, y * s + s/2);
+          text(t.debug, (x * s + s/2) * scaleFactor, (y * s + s/2) * scaleFactor);
         }
       }
     }
@@ -112,17 +112,16 @@ class Maze {
     popMatrix();
 	
     // Draw player
-    player.draw(this);
+    player.draw(this, scaleFactor);
   }
   
-  void colorTile(int posx, int posy, color c) {
+  void colorTile(int posx, int posy, color c, int alpha) {
     // Set color
-    fill(c);
-    stroke(c);
+    fill(c, alpha);
+    stroke(c, alpha);
     
-    // Color tile
-    Vec2 coords = tileCoords(posx, posy, "CORNER");
-    rect(coords.x, coords.y, this.cellW, this.cellH);
+    Vec2 coords = tileCoords(posx, posy, "CENTER");
+    ellipse(coords.x, coords.y, this.cellW, this.cellH);
   }
   
   void printDebug() {
@@ -177,15 +176,29 @@ class Maze {
   }
   
   Vec2 tileCoords(int posx, int posy, String mode) {
+    return tileCoords(posx, posy, mode, 1);
+  }
+  
+  Vec2 tileCoords(int posx, int posy, String mode, float scaleFactor) {
+    Vec2 mazeSize = new Vec2(mazeW, mazeH);
+    Vec2 mazeCenter = pos.add(mazeSize.div(2));
+    Vec2 topLeftWithScale = mazeCenter.sub(mazeSize.mult(scaleFactor / 2));
+    
     Vec2 coords = new Vec2();
     if (mode == "CENTER") {
-      coords.x = this.pos.x + (posx * this.cellW) + (this.cellW / 2);
-      coords.y = this.pos.y + (posy * this.cellH) + (this.cellH / 2);
+      coords.x = topLeftWithScale.x + ((posx * this.cellW) + (this.cellW / 2)) * scaleFactor;
+      coords.y = topLeftWithScale.y + ((posy * this.cellH) + (this.cellH / 2)) * scaleFactor;
     } else { // if (mode == "CORNER") {
-      coords.x = this.pos.x + (posx * this.cellW);
-      coords.y = this.pos.y + (posy * this.cellH);
+      coords.x = topLeftWithScale.x + (posx * this.cellW) * scaleFactor;
+      coords.y = topLeftWithScale.y + (posy * this.cellH) * scaleFactor;
     }
     return coords;
+  }
+  
+  void setPositionFromCenter(Vec2 center) {
+    Vec2 size = new Vec2(mazeW, mazeH);
+    Vec2 topLeft = center.sub(size.div(2));
+    this.pos = topLeft;
   }
   
   //int[] gridCoords(Vec2 pos, String mode) {

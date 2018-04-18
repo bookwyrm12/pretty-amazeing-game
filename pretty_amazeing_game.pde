@@ -1,20 +1,22 @@
 import java.util.ArrayDeque;
 import java.util.Iterator;
+import processing.sound.*;
 
-/**** VARIABLES ****/
 App app;
 SceneMainMenu mm;
-SceneOptions options;
 CharacterPlayer player;
+SceneOptions options;
+Music music;
+ColorPallete CP;
 
-color cPersianGreen = color(0, 168, 150);
-
-/**** DO THINGS ****/
 void setup() {
   size(800, 600);
   app = new App();
   player = new CharacterPlayer();
   mm = new SceneMainMenu(app);
+  music = new Music();
+  //music.play_music();
+  CP = new ColorPallete();
 }
 
 void draw() {

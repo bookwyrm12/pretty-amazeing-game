@@ -93,6 +93,40 @@ class SceneButtonList {
     }
   }
   
+  float getMaxButtonEasedZoom() {
+    float max = 0;
+    for (SceneButton button : buttons) {
+      if (max < button.easedZoom()) {
+        max = button.easedZoom();
+      }
+    }
+    return max;
+  }
+  
+  Rect getBounds() {
+    if (buttons.size() == 0) {
+      return null;
+    }
+    Rect r = buttons.get(0).scene.bounds.copy();
+    for (SceneButton button : buttons) {
+      if (button.scene.bounds.x < r.x) {
+        r.w += r.x - button.scene.bounds.x;
+        r.x = button.scene.bounds.x;
+      }
+      if (button.scene.bounds.y < r.y) {
+        r.h += r.y - button.scene.bounds.y;
+        r.y = button.scene.bounds.y;
+      }
+      if (button.scene.bounds.getMaxX() > r.getMaxX()) {
+        r.w += button.scene.bounds.getMaxX() - r.getMaxX();
+      }
+      if (button.scene.bounds.getMaxY() > r.getMaxY()) {
+        r.h += button.scene.bounds.getMaxY() - r.getMaxY();
+      }
+    }
+    return r;
+  }
+  
   private ArrayList<SceneButton> sortButtons() {
     // Stolen from: https://trinisoftinc.wordpress.com/2012/03/29/simple-sorting-algorithms-implementations-part-1/
     

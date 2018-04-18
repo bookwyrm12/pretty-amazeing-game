@@ -58,12 +58,12 @@ class Character {
     }
   }
   
-  void draw(Maze maze) {
+  void draw(Maze maze, float scaleFactor) {
     // Update position first
     move(maze);
     
     // Get current position coordinates
-    Vec2 coords = maze.tileCoords(this.posx, this.posy, "CENTER");
+    Vec2 coords = maze.tileCoords(this.posx, this.posy, "CENTER", scaleFactor);
     
     pushMatrix();
     shapeMode(CENTER);
@@ -72,13 +72,14 @@ class Character {
     drawTrail(maze);
     
     // Set icon color
-    fill(255, 255, 255);
-    stroke(255, 255, 255);
-    setIconColor(color(255, 255, 255));
+    fill(CP.line);
+    stroke(CP.line);
+    setIconColor(CP.line);
     
-    // Rotate icon
+    // Transform the icon
     translate(coords.x, coords.y);
     rotate(this.rotate * (PI/2));
+    scale(scaleFactor);
     
     // Draw icon
     shape(this.icon, 0, 0, this.iconW, this.iconH);
@@ -92,7 +93,7 @@ class Character {
     int fade = 255;
     
     // Color current tile
-    maze.colorTile(this.posx, this.posy, color(0, 168, 150, fade));
+    maze.colorTile(this.posx, this.posy, CP.border, fade);
     
     // Color trail tiles
     Iterator<int[]> trail = this.moveTrail.descendingIterator();
@@ -101,7 +102,7 @@ class Character {
         fade -= (255 * 0.2);
       }
       int[] t = trail.next();
-      maze.colorTile(t[0], t[1], color(0, 168, 150, fade));
+      maze.colorTile(t[0], t[1], CP.border, fade);
     }
   }
   

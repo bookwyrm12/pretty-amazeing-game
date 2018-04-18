@@ -5,6 +5,7 @@ class SceneLevel extends Scene {
   SceneLevelSelect levelSelect;
   MazeGenerator gen;
   boolean levelOn;
+  CircleButton backButton;
   
   SceneLevel(SceneLevelSelect levelSelect, int id) {
     super(levelSelect.app);
@@ -14,33 +15,59 @@ class SceneLevel extends Scene {
     this.mazePos     = new Vec2(200, 100);
     this.maze        = new Maze(this.wCells, this.hCells, this.mazePos);
     this.gen         = new MazeGenerator();
+    this.backButton = new CircleButton(0, 0, 0, 0, 255, 255);
   }
   
   void tick() {
     boolean controlsActive = (bounds.w > 500);
     
-    if (controlsActive && app.wasMouseClicked()) {
-      this.levelSelect.goToLevelSelect();
+    if (controlsActive){
+      // Check for back button
+      backButton.tick();
+      if (backButton.wasClicked) {
+        this.levelSelect.goToLevelSelect();
+      }
     }
   }
   
   void draw() {
-  //void draw(CharacterPlayer player) {
-    fill(255);
-    noStroke();
-    rect(bounds.x, bounds.y, bounds.w, bounds.h);
-    fill(0);
-    textAlign(CENTER, CENTER);
-    textSize(bounds.h / 5);
-    text(("Level " + this.id), bounds.getCenter().x, bounds.getCenter().y);
+    ButtonPattern bp = new ButtonPattern(bounds.x, bounds.y, bounds.w, bounds.h);
+    bp.displayLevel();
+    
+    { // Draw the back button
+      float offsetX = bounds.x + 1.0 / 20 * bounds.w;
+      float offsetY = bounds.y + 1.0 / 20 * bounds.w;
+      float sizeY = 0.5 / 8.0 * bounds.h;
+      
+      // We only want to render the button when the scene is active
+      int height1 = 50;
+      int height2 = 600;
+      float t = constrain((bounds.h - height1) / (height2 - height1), 0, 1);
+      float tAlpha = t * 255;
+      
+      backButton.bounds(offsetX, offsetY, sizeY, sizeY, CP.lightText, CP.darkText);
+      backButton.alpha = tAlpha;
+      backButton.displayBackLevel();
+    }
+    
+    { // Draw the dummy text
+      fill(#46351D);
+      textFont(createFont(FC.font, 1));
+      textAlign(CENTER, CENTER);
+      textSize(bounds.h*0.618);
+      text("Level " + this.id, bounds.getCenter().x, bounds.getCenter().y-5);
+    }
     
     // TODO
     { // Draw the maze
-      int height1 = 100; // 300
-      int height2 = 400; // 600
+      int height1 = 100; //100; // 300
+      int height2 = 600; //400; // 600
       float t = constrain((bounds.h - height1) / (height2 - height1), 0, 1);
       
       if (t > 0) {
+        // Center the maze
+        this.maze.setPositionFromCenter(bounds.getCenter());
+        
         // Set player coordinates to beginning of maze when starting the level
         if (!this.levelOn) {
           player.setCoords(maze, this.maze.startX, this.maze.startY);
@@ -49,7 +76,7 @@ class SceneLevel extends Scene {
         
         if (this.maze.endX == player.posx && this.maze.endY == player.posy) {
           player.completeLevel(this.id);
-          println("Nice! You completed Level " + this.id);
+          println("Nice! You beat Level " + this.id);
           player.resetPos(this.maze);
           this.levelSelect.goToLevelSelect();
         }
@@ -57,10 +84,6 @@ class SceneLevel extends Scene {
       } else {
         this.levelOn = false;
       }
-    }
-    
-    { // 
-      
     }
   }
   
