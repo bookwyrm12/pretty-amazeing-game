@@ -77,6 +77,15 @@ class SceneOptions extends Scene {
   void pattern() {
     ButtonPattern bp = new ButtonPattern(bounds.x, bounds.y, bounds.w, bounds.h);
     bp.displayMain();
+    float d = 0;
+    pushMatrix();
+    translate(bounds.x + bounds.w/10, bounds.y);
+    for(int i = 0; i < 4; i++) {
+      if(i > 1) d = 5;
+      Vine v = new Vine((i + d)*bounds.w/10, 0, (i + d)*bounds.w/10, bounds.h, CP.line, CP.fillCol);
+      v.display();
+    }
+    popMatrix();
     
     fill(CP.lightText);
     textFont(createFont(FC.font, 1));

@@ -26,10 +26,10 @@ class ButtonPattern {
     
     stroke(CP.darkText);
     strokeWeight(2);
-    fill(CP.beige);
+    fill(CP.lightText);
     octogon();
     fill(CP.lightText);
-    stroke(CP.brown);
+    stroke(CP.darkText);
     strokeWeight(2);
     rect(this.x, this.y, this.w, this.h);
     

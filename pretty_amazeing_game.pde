@@ -15,7 +15,6 @@ void setup() {
   player = new CharacterPlayer();
   mm = new SceneMainMenu(app);
   music = new Music();
-  //music.play_music();
   CP = new ColorPallete();
 }
 

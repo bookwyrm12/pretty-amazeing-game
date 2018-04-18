@@ -37,6 +37,7 @@ class SceneLevel extends Scene {
     } else {
       bp.displayLevelComplete();
     }
+    pattern();
     
     { // Draw the back button
       float offsetX = bounds.x + 1.0 / 20 * bounds.w;
@@ -95,6 +96,17 @@ class SceneLevel extends Scene {
         
       } else {
         this.levelOn = false;
+      }
+    }
+  }
+  
+  void pattern() {
+    for(int i = 0; i < 5; i++) {
+      for(int j = 0; j < 4; j++) {
+        if((j == 1 || j == 2) && (i > 0 && i < 4)) {
+        }else {Squares s = new Squares(bounds.x + bounds.w/10 + (i)*bounds.w/5, bounds.y 
+            + bounds.h/8 + (j)*bounds.h/4, bounds.h/20, CP.darkText, CP.lightText);
+        s.display();}
       }
     }
   }
