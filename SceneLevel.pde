@@ -55,12 +55,29 @@ class SceneLevel extends Scene {
       backButton.displayBackLevel();
     }
     
-    { // Draw the dummy text
+    { // Draw level label
+      Vec2 pos1 = bounds.getCenter();
+      Vec2 pos2 = bounds.getCenter().sub(new Vec2(0, bounds.h * 13 / 32));
+      Vec2 pos = pos1;
+      
+      float size1 = bounds.h * 0.618;
+      float size2 = bounds.h / 9;
+      float size = size1;
+      
+      int height1 = 50;
+      int height2 = 600;
+      float t = constrain((bounds.h - height1) / (height2 - height1), 0, 1);
+      
+      if (bounds.h > height1) {
+        pos = pos1.lerp(pos2, t);
+        size = lerp(size1, size2, t);
+      }
+      
       fill(CP.darkText);
       textFont(createFont(FC.font, 1));
       textAlign(CENTER, CENTER);
-      textSize(bounds.h*0.618);
-      text("Level " + this.id, bounds.getCenter().x, bounds.getCenter().y-5);
+      textSize(size);
+      text("Level " + this.id, pos.x, pos.y-5);
     }
     
     // TODO
