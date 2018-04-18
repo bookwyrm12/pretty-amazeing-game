@@ -18,6 +18,9 @@ class Maze {
   int startX, startY;
   int endX, endY;
   
+  // Transparency value, range 0-255
+  float alpha;
+  
   Maze(int width, int height, Vec2 pos) {
     this.width  = width;
     this.height = height;
@@ -26,6 +29,7 @@ class Maze {
     this.pos    = pos;
     this.tiles  = new Tile[width][height];
     this.resetTiles();
+    this.alpha = 255;
   }
   
   void resetTiles() {
@@ -60,9 +64,9 @@ class Maze {
       for (int y = 0; y < this.height; ++y) {
         Tile t = tiles[x][y];
         if (t.solid) {
-          fill(0);
+          fill(0, this.alpha);
         } else {
-          fill(255);
+          fill(255, this.alpha);
         }
         rect(x * s, y * s, s, s);
         
@@ -70,7 +74,7 @@ class Maze {
     }
     
     // Draw the walls (done separately so that the walls are always on top)
-    stroke(0);
+    stroke(0, this.alpha);
     for (int x = 0; x < this.width; ++x) {
       for (int y = 0; y < this.height; ++y) {
         Tile t = tiles[x][y];
@@ -131,8 +135,8 @@ class Maze {
   
   void colorTile(int posx, int posy, color c, int alpha, String shape) {
     // Set color
-    fill(c, alpha);
-    stroke(c, alpha);
+    fill(c, (this.alpha >= 200 ? alpha : this.alpha - alpha));
+    stroke(c, (this.alpha >= 200 ? alpha : this.alpha - alpha));
     
     if (shape == "ELLIPSE") {
       Vec2 coords = tileCoords(posx, posy, "CENTER");

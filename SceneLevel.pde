@@ -63,6 +63,9 @@ class SceneLevel extends Scene {
       int height1 = 100; //100; // 300
       int height2 = 600; //400; // 600
       float t = constrain((bounds.h - height1) / (height2 - height1), 0, 1);
+      float tAlpha = t * 255;
+      
+      this.maze.alpha = tAlpha;
       
       if (t > 0) {
         // Center the maze
@@ -74,13 +77,17 @@ class SceneLevel extends Scene {
           this.levelOn = true;
         }
         
+        // Level complete
         if (this.maze.endX == player.posx && this.maze.endY == player.posy) {
           player.completeLevel(this.id);
           println("Nice! You beat Level " + this.id);
           player.resetPos(this.maze);
           this.levelSelect.goToLevelSelect();
         }
+        
+        // Draw maze
         this.maze.draw(player, t);
+        
       } else {
         this.levelOn = false;
       }
