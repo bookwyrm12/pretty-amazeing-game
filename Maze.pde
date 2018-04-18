@@ -224,18 +224,4 @@ class Maze {
     Vec2 topLeft = center.sub(size.div(2));
     this.pos = topLeft;
   }
-  
-  //int[] gridCoords(Vec2 pos, String mode) {
-  //  int[] coords = new int[2];
-  //  if (mode == "CENTER") {
-  //    coords[0] = int((pos.x - this.pos.x) / this.cellW);
-  //    coords[1] = int((pos.y - this.pos.y) / this.cellH);
-  //    //coords[0] = this.pos.x + (pos.x * this.cellW) + (this.cellW / 2);
-  //    //coords[1] = this.pos.y + (pos.y * this.cellH) + (this.cellH / 2);
-  //  } else { // if (mode == "CORNER") {
-  //    coords[0] = int((pos.x - this.pos.x) / this.cellW);
-  //    coords[1] = int((pos.y - this.pos.y) / this.cellH);
-  //  }
-  //  return coords;
-  //}
 }

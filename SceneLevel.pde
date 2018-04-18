@@ -111,16 +111,6 @@ class SceneLevel extends Scene {
     }
   }
   
-  // Old stuff
-  
-  //SceneLevel(App app, int id) {
-  //  super(app);
-  //  this.id      = id;
-  //  setMazeSize(this.id);
-  //  this.mazePos = new Vec2(200, 100);
-  //  this.maze    = new Maze(this.wCells, this.hCells, this.mazePos);
-  //}
-  
   void setMazeSize(int id) {
     // Keep all levels the same size for now. This keeps
     // the UI looking pretty, and we don't have to worry
@@ -133,11 +123,4 @@ class SceneLevel extends Scene {
     //this.wCells = 18 + (id * 2);
     //this.hCells = 18 + (id * 2);
   }
-  
-  //void draw(CharacterPlayer player) {
-  //  // Draw background
-    
-  //  // Draw maze
-  //  maze.draw(player);
-  //}
 }

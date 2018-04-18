@@ -34,7 +34,7 @@ class SceneMainMenu extends Scene {
     ButtonPattern bp = new ButtonPattern(bounds.x, bounds.y, bounds.w, bounds.h);
     bp.displayMain();
     
-    //Pattern
+    // Pattern
     Flower f1 = new Flower(bounds.x + bounds.w, bounds.y + bounds.h, 500, CP.fillCol, CP.line);
     Flower f2 = new Flower(bounds.x, bounds.y, 500, CP.line, CP.fillCol);
     f1.display();

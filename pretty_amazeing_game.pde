@@ -5,7 +5,6 @@ import processing.sound.*;
 App app;
 SceneMainMenu mm;
 CharacterPlayer player;
-SceneOptions options;
 Music music;
 ColorPallete CP;
 
