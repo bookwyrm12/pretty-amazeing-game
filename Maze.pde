@@ -96,32 +96,52 @@ class Maze {
     }
     popMatrix();
     
-    // Draw the debug text
-    for (int x = 0; x < this.width; ++x) {
-      for (int y = 0; y < this.height; ++y) {
-        Tile t = tiles[x][y];
-        if (t.debug != null) {
-          fill(t.solid ? 255 : 0);
-          textAlign(CENTER, CENTER);
-          textSize(10);
-          text(t.debug, (x * s + s/2) * scaleFactor, (y * s + s/2) * scaleFactor);
-        }
-      }
-    }
+    //// Draw the debug text
+    //for (int x = 0; x < this.width; ++x) {
+    //  for (int y = 0; y < this.height; ++y) {
+    //    Tile t = tiles[x][y];
+    //    if (t.debug != null) {
+    //      fill(t.solid ? 255 : 0);
+    //      textAlign(CENTER, CENTER);
+    //      textSize(10);
+    //      text(t.debug, (x * s + s/2) * scaleFactor, (y * s + s/2) * scaleFactor);
+    //    }
+    //  }
+    //}
     
     popMatrix();
+    
+    // Color start tile
+    colorTile(this.startX, this.startY, CP.border, "RECT");
+    
+    // Color end tile
+    colorTile(this.endX, this.endY, CP.line, "RECT");
 	
     // Draw player
     player.draw(this, scaleFactor);
   }
   
-  void colorTile(int posx, int posy, color c, int alpha) {
+  void colorTile(int posx, int posy, color c) {
+    colorTile(posx, posy, c, 255, "RECT");
+  }
+  
+  void colorTile(int posx, int posy, color c, String shape) {
+    colorTile(posx, posy, c, 255, shape);
+  }
+  
+  void colorTile(int posx, int posy, color c, int alpha, String shape) {
     // Set color
     fill(c, alpha);
     stroke(c, alpha);
     
-    Vec2 coords = tileCoords(posx, posy, "CENTER");
-    ellipse(coords.x, coords.y, this.cellW, this.cellH);
+    if (shape == "ELLIPSE") {
+      Vec2 coords = tileCoords(posx, posy, "CENTER");
+      ellipse(coords.x, coords.y, this.cellW, this.cellH);
+    } else { // if (shape == "RECT")
+      Vec2 coords = tileCoords(posx, posy, "CORNER");
+      rect(coords.x, coords.y, this.cellW, this.cellH);
+    }
+    
   }
   
   void printDebug() {

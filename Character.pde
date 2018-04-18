@@ -93,7 +93,7 @@ class Character {
     int fade = 255;
     
     // Color current tile
-    maze.colorTile(this.posx, this.posy, CP.border, fade);
+    maze.colorTile(this.posx, this.posy, CP.border, fade, "ELLIPSE");
     
     // Color trail tiles
     Iterator<int[]> trail = this.moveTrail.descendingIterator();
@@ -102,7 +102,7 @@ class Character {
         fade -= (255 * 0.2);
       }
       int[] t = trail.next();
-      maze.colorTile(t[0], t[1], CP.border, fade);
+      maze.colorTile(t[0], t[1], CP.border, fade, "ELLIPSE");
     }
   }
   
