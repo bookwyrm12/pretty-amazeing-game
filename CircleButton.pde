@@ -54,15 +54,23 @@ class CircleButton {
     this.lineCol = lineCol;
   }
   
-  void displayNoImage() {
-    stroke(CP.line, alpha);
+  void displayNoImage(color highlightCol) {
+    if (this.overCircle(x, y, max(w, h))) {
+      stroke(highlightCol, alpha);
+    } else {
+      stroke(CP.line, alpha);
+    }
     strokeWeight(2);
     fill(fillCol, alpha);
     ellipse(x, y, w, h);
   }
   
-  void displayImage() {
-    stroke(CP.line, alpha);
+  void displayImage(color highlightCol) {
+    if (this.overCircle(x, y, max(w, h))) {
+      stroke(highlightCol, alpha);
+    } else {
+      stroke(CP.line, alpha);
+    }
     strokeWeight(2);
     fill(CP.lightText, alpha);
     ellipse(x, y, w, h);

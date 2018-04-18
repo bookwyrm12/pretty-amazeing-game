@@ -121,9 +121,9 @@ class SceneOptions extends Scene {
     CircleButton blue = new CircleButton(bounds.x + bounds.w/2 - bounds.h/7, bounds.y + 2*bounds.h/3, bounds.h/20, bounds.h/20, ColorPallete.darkBlue);
     CircleButton purple = new CircleButton(bounds.x + bounds.w/2, bounds.y + 2*bounds.h/3, bounds.h/20, bounds.h/20, ColorPallete.darkPurple);
     CircleButton dark = new CircleButton(bounds.x + bounds.w/2  + bounds.h/7, bounds.y + 2*bounds.h/3, bounds.h/20, bounds.h/20, ColorPallete.black);
-    blue.displayNoImage();
-    purple.displayNoImage();
-    dark.displayNoImage();
+    blue.displayNoImage(#FFFFFF);
+    purple.displayNoImage(#FFFFFF);
+    dark.displayNoImage(#FFFFFF);
     
     blue.update();
     purple.update();
@@ -137,9 +137,9 @@ class SceneOptions extends Scene {
     CircleButton char1 = new CircleButton(bounds.x + bounds.w/2 - bounds.h/7, bounds.y + 4*bounds.h/5, bounds.h/20, bounds.h/20, "char_ladybug.svg");
     CircleButton char2 = new CircleButton(bounds.x + bounds.w/2, bounds.y + 4*bounds.h/5, bounds.h/20, bounds.h/20, "char_owl.svg");
     CircleButton char3 = new CircleButton(bounds.x + bounds.w/2  + bounds.h/7, bounds.y + 4*bounds.h/5, bounds.h/20, bounds.h/20, "char_cat.svg");
-    char1.displayImage();
-    char2.displayImage();
-    char3.displayImage();
+    char1.displayImage(#000000);
+    char2.displayImage(#000000);
+    char3.displayImage(#000000);
     char1.update();
     char2.update();
     char3.update();
