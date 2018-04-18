@@ -63,7 +63,11 @@ class Maze {
     for (int x = 0; x < this.width; ++x) {
       for (int y = 0; y < this.height; ++y) {
         Tile t = tiles[x][y];
-        if (t.solid) {
+        if (x == startX && y == startY) {
+          fill(CP.border);
+        } else if (x == endX && y == endY) {
+          fill(CP.line);
+        } else if (t.solid) {
           fill(0, this.alpha);
         } else {
           fill(255, this.alpha);
@@ -114,12 +118,6 @@ class Maze {
     //}
     
     popMatrix();
-    
-    // Color start tile
-    colorTile(this.startX, this.startY, CP.border, "RECT");
-    
-    // Color end tile
-    colorTile(this.endX, this.endY, CP.line, "RECT");
 	
     // Draw player
     player.draw(this, scaleFactor);
