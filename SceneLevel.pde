@@ -16,6 +16,7 @@ class SceneLevel extends Scene {
     this.maze        = new Maze(this.wCells, this.hCells, this.mazePos);
     this.gen         = new MazeGenerator();
     this.backButton = new CircleButton(0, 0, 0, 0, 255, 255);
+    this.levelComplete = player.hasCompletedLevel(this.id);
   }
   
   void tick() {

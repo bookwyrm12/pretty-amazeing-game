@@ -8,6 +8,10 @@ class CharacterPlayer extends Character {
     super();
     this.id = generateID();
     this.completedLevels = new IntList();
+    
+    SaveData saveData = new SaveData();
+    saveData.loadFile();
+    saveData.loadPlayerData(this);
   }
   
   CharacterPlayer(String name, String icon) {
@@ -15,6 +19,10 @@ class CharacterPlayer extends Character {
     this.id = generateID();
     this.name = name;
     this.completedLevels = new IntList();
+    
+    SaveData saveData = new SaveData();
+    saveData.loadFile();
+    saveData.loadPlayerData(this);
   }
   
   void load(int id) {
@@ -53,5 +61,9 @@ class CharacterPlayer extends Character {
       SaveData save = new SaveData();
       save.updatePlayerData(this);
     }
+  }
+  
+  boolean hasCompletedLevel(int level) {
+    return this.completedLevels.hasValue(level);
   }
 }
