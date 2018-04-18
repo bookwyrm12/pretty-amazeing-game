@@ -35,6 +35,20 @@ class ButtonPattern {
     
   }
   
+  
+  void displayLevelComplete() {
+    
+    stroke(CP.grey);
+    strokeWeight(2);
+    fill(CP.line);
+    octogon();
+    fill(CP.line);
+    stroke(CP.grey);
+    strokeWeight(2);
+    rect(this.x, this.y, this.w, this.h);
+    
+  }
+  
   void octogon() {
     int d = 8;
     pushMatrix();

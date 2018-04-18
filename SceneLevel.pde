@@ -4,7 +4,7 @@ class SceneLevel extends Scene {
   Maze maze;
   SceneLevelSelect levelSelect;
   MazeGenerator gen;
-  boolean levelOn;
+  boolean levelOn, levelComplete;
   CircleButton backButton;
   
   SceneLevel(SceneLevelSelect levelSelect, int id) {
@@ -32,7 +32,11 @@ class SceneLevel extends Scene {
   
   void draw() {
     ButtonPattern bp = new ButtonPattern(bounds.x, bounds.y, bounds.w, bounds.h);
-    bp.displayLevel();
+    if (!levelComplete) {
+      bp.displayLevel();
+    } else {
+      bp.displayLevelComplete();
+    }
     
     { // Draw the back button
       float offsetX = bounds.x + 1.0 / 20 * bounds.w;
@@ -80,6 +84,7 @@ class SceneLevel extends Scene {
         // Level complete
         if (this.maze.endX == player.posx && this.maze.endY == player.posy) {
           player.completeLevel(this.id);
+          this.levelComplete = true;
           println("Nice! You beat Level " + this.id);
           player.resetPos(this.maze);
           this.levelSelect.goToLevelSelect();
