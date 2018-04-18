@@ -32,19 +32,29 @@ class SceneOptions extends Scene {
       float offsetY = bounds.y + 1.0 / 20 * bounds.w;
       float sizeY = 0.5 / 8.0 * bounds.h;
       
+      int height1 = 50;
+      int height2 = 600;
+      float t = constrain((bounds.h - height1) / (height2 - height1), 0, 1);
+      float alpha = t * 255;
+      
       backButton.bounds(offsetX, offsetY, sizeY, sizeY, CP.background, CP.line);
+      backButton.alpha = alpha;
       backButton.displayBackMain();
     }
-    { // If we're below a certain size, we want to fade out the scene buttons, so
+    { // If we're below a certain size, we want to fade out the control buttons, so
       // we'll do that by rendering a translucent black rect over them.
       int height1 = 50;
       int height2 = 600;
       float t = constrain((bounds.h - height1) / (height2 - height1), 0, 1);
       float alpha = (1 - t) * 255;
       
+      // We'll have to adjust the width, since there are patterns on either side
+      Rect r = new Rect(bounds.getCenter().x - bounds.w / 4, bounds.y + 2, bounds.w / 2, bounds.h - 4);
+      
       fill(CP.background, alpha);
       noStroke();
-      rect(bounds.x + 2, bounds.y + 2, bounds.w - 2, bounds.h - 2);
+      rect(r.x, r.y, r.w, r.h);
+      //rect(bounds.x + 2, bounds.y + 2, bounds.w - 2, bounds.h - 2);
       //rect(bounds.x + bounds.w / 8, bounds.y + bounds.h / 4, 3 * bounds.w / 4, bounds.h / 2);
     }
     
